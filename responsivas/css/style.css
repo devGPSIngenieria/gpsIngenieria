@@ -1,0 +1,53 @@
+.ventanaModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100% ;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    overflow: hidden;
+    transform: scale(1);
+    transform-origin: 0 0;
+}
+.ventanaModal-content {
+    position: absolute;
+    border-radius: 10px;
+    overflow: hidden;
+    transform: scale(1);
+    transform-origin: 0 0;
+}
+.close {
+    position: absolute;
+    cursor: pointer;
+    color: #ff0000;
+    font-size: 50px;
+    font-weight: 700;
+    padding: 0;
+    z-index: 1002;
+    overflow: hidden;
+    justify-content: end;
+    right: 25;
+}
+.ventanaModal-fullscreen {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+.cont-modal-iframe{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.iframe{
+    height: 100%;
+    width: 100%;
+    padding: 60px;
+    border: none;
+    min-width: 10%; /* Opcional: establece un ancho mínimo igual al 100% */
+    min-height: 10%; 
+}

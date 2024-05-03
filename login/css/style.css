@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;	
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body, html {
+    background: linear-gradient(90deg, #f2fff5, #d3fbdc);		
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.marcaAguaBody{
+    opacity: 0 !important;
+	z-index: 0 !important;
+}
+.divLogo{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+	background: #FFF;
+	height: 200px;
+	width: 200px;
+	border-radius: 50%;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	position: absolute;
+	margin-top: -100px;
+}
+.screen {		
+	margin: 0;
+	background: linear-gradient(90deg, #438c36, #a3d69a);		
+	position: relative;	
+	height: 550px;
+	/* width: 360px;	 */
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.screen__content {
+	z-index: 1;
+	position: relative;	
+	height: 100%;
+}
+.screen__background {		
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	-webkit-clip-path: inset(0 0 0 0);
+	clip-path: inset(0 0 0 0);	
+}
+.screen__background__shape {
+	transform: rotate(45deg);
+	position: absolute;
+}
+.screen__background__shape1 {
+	height: 520px;
+	width: 520px;
+	background: #FFF;	
+	top: -50px;
+	right: 120px;	
+	border-radius: 0 72px 0 0;
+}
+.screen__background__shape2 {
+	height: 220px;
+	width: 220px;
+	background: #438c36;	
+	top: -172px;
+	right: 0;	
+	border-radius: 32px;
+}
+.screen__background__shape3 {
+	height: 540px;
+	width: 190px;
+	background: linear-gradient(270deg, #438c36, #a3d69a);
+	top: -24px;
+	right: 0;	
+	border-radius: 32px;
+}
+.screen__background__shape4 {
+	height: 400px;
+	width: 200px;
+	background: #438c36;	
+	top: 420px;
+	right: 50px;	
+	border-radius: 60px;
+}
+.login {
+	width: 320px;
+	padding: 30px;
+	padding-top: 126px;
+}
+.login__field {
+	padding: 20px 0px;	
+	position: relative;	
+}
+.login__icon {
+	position: absolute;
+	top: 30px;
+	color: #438c36;
+}
+.login__input {
+	border: none;
+	border-bottom: 2px solid #D1D1D4;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	width: 75%;
+	transition: .2s;
+}
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+	outline: none;
+	border-bottom-color: #438c36;
+}

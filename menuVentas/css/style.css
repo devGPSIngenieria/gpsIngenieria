@@ -1,0 +1,15 @@
+.divLogo {
+  width: 300px;
+}
+
+.btn-menu {
+  background-color: #438C36;
+  margin: auto auto;
+  border-radius: 10px;
+  width: 200px;
+  height: 150px;
+}
+
+.btn-menu:hover {
+  cursor: pointer;
+}

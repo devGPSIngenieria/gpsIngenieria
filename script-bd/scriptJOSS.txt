@@ -1,0 +1,101 @@
+######################################
+SCRIPT BD GPSINGENIERIA
+######################################
+
+============================= # 20/09/2023
+
+INSERT INTO `areas` (`nombre`) VALUES (`empleados`);
+
+INSERT INTO `seccionesareas` (`idarea`, `nombre`) VALUES ('10', 'catalogo'), ('10', 'registro');
+
+CREATE TABLE empleados (
+    idEmpleado int autoIncremental,
+    nombre varchar (50),
+    apellidos varchar (100),
+    correo varchar (50),
+    telefono bigint,
+    puesto varchar (50),
+    status int
+);
+
+
+
+
+#============================= # 27/09/2023
+
+INSERT INTO `areas` (`nombre`) VALUES ('responsivas'); 
+
+INSERT INTO `seccionesareas` (`idarea`, `nombre`) VALUES ('11', 'generar responsivas');
+
+
+
+#============================= # 10/10/2023
+
+CREATE TABLE responsivas (
+    idresponsiva int autoIncremental,
+    usuarioid int,
+    fechacreacion datetime,
+    banderafirmado tinyint,
+    estadoid int
+);
+
+
+
+#============================= # 11/10/2023
+
+INSERT INTO `seccionesareas` (`idseccion`, `idarea`, `nombre`) VALUES (NULL, '11', 'Catalogo responsivas');
+
+
+
+#============================= # 28/10/2023
+
+CREATE TABLE entradassalidas (
+    identradasalida int autoIncremental,
+    idtipo int,
+    idmovimiento int,
+    idrelacion int,
+    estado int,
+);
+
+CREATE TABLE movimiento (
+    idmovimiento int autoIncremental,
+    nombremovimiento varchar (50),
+    estado int,
+);
+
+INSERT INTO `movimiento` (`idmovimiento`, `nombremovimiento`, `estado`) VALUES (NULL, 'Entrada', '1'), (NULL, 'Salida', '1');
+
+CREATE TABLE tipo (
+    idtipo int autoIncremental,
+    nombretipo varchar (50),
+    estado int,
+);
+
+INSERT INTO `tipo` (`idtipo`, `nombretipo`, `estado`) VALUES (NULL, 'Venta', '1'), (NULL, 'Orden', '1'), (NULL, 'Responsiva', '1');
+
+CREATE TABLE productorelacionentradassalidas (
+    identradasalida int,
+    idproducto int,
+    cantidad int ,
+    estado int 
+);
+
+CREATE TABLE estados (
+    idestado int,
+    nombreestado varchar(50)
+);
+
+INSERT INTO `estados` (`idestado`, `nombreestado`) VALUES (NULL, 'Activo'), (NULL, 'Inactivo');
+
+
+#============================= # 28/10/2023
+
+CREATE TABLE entradassalidas (
+    identradasalida int auto_increment,
+    idtipo int,
+    idmovimiento int,
+    idrelacion int,
+    fecha datetime,
+    estado int,
+    primary key(identradasalida)
+)

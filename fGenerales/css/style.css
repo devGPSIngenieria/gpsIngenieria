@@ -1,0 +1,648 @@
+.btnMenu:hover {
+    border-color: #333333;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btnMenu {
+    border-radius: 20px;
+    border: 5px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+}
+
+.btnMenu:hover .card-button {
+    transform: translate(50%, 0%);
+    opacity: 1;
+}
+
+.btnMenu:hover .imgConfiguracion {
+    filter: invert(42%) sepia(100%) saturate(4599%) hue-rotate(219deg) brightness(0%) contrast(114%);
+    transition: 0.3s ease-out;
+}
+
+.card-button {
+    transform: translate(50%, 25%);
+    width: 50%;
+    border-radius: 1rem;
+    border: none;
+    background-color: #333333;
+    color: #fff;
+    font-size: 1rem;
+    /* padding: .5rem 1rem; */
+    bottom: 0;
+    opacity: 0;
+    transition: 0.3s ease-out;
+}
+
+body {
+    font-family: 'Roboto';
+    src: url('../../src/fuentes/Roboto-Regular.ttf');
+    background-color: #6c8e7b49;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 500px;
+    height: 500px;
+    border-radius: 30px;
+    background-color: #438C36;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.row {
+    margin: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    height: 50px;
+    width: 100%;
+}
+
+button {
+    height: 50px;
+    width: 100%;
+}
+
+.txtTitulo {
+    margin-top: 20px;
+    font-size: 30px;
+}
+
+.divLogo {
+    /* position: absolute; */
+    margin: auto auto;
+    width: 150px;
+}
+
+.imgLogo {
+    width: 100%;
+}
+
+.imgregreso {
+    width: 75px;
+}
+
+.imgregreso:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+}
+
+.imgConfiguracion {
+    margin-top: 20px;
+}
+
+.aTitulo {
+    font-size: 50px;
+}
+
+.imgIconoUsuarios {
+    margin-left: 10px;
+}
+
+.btnUsuarios {
+    background-color: #4BA63B !important;
+    font-size: 20px;
+}
+
+.btnUsuarios:hover {
+    opacity: 0.9 !important;
+}
+
+/*==================================================================================
+                                    TABLA
+====================================================================================*/
+
+/* MARCA DE AGUA DE LA TABLA 
+==============================*/
+.marcaAguaTabla {
+    position: absolute;
+    opacity: .1;
+    left: 50%;
+    margin-top: 50px;
+    transform: translate(-50%);
+}
+
+/* COLOR DE FONDO DE LA TABLA
+===============================*/
+table {
+    background: linear-gradient(to bottom, #4bb538a7, transparent);
+}
+
+/* TÍTULOS DE LAS COLUMNAS DE LA TABLA 
+========================================*/
+table th {
+    background: #414141 !important;
+    color: #ffffff;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+table td {
+    font-size: 14px;
+}
+table tr{
+    vertical-align: middle;
+}
+
+/* ESTILO PARA LA PRIMERA FILA DE LA TABLA 
+============================================*/
+table tr:nth-child(odd) {
+    color: #000000;
+}
+
+/* ESTILO PARA LA SIGUIENTE FILA DE LA TABLA */
+table tr:nth-child(even) {
+    color: #000000;
+}
+
+/* CONTENEDOR PARA EL CONTENIDO DE LA PAGINA
+============================================== */
+.contenedorCont {
+    margin-bottom: 100px;
+}
+
+/* ============================================================================================
+                                            FOOTER 
+===============================================================================================*/
+
+/* CONTENEDOR DEL FOOTER 
+==========================*/
+.footer-distributed {
+    background: #414141;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    padding: 10px 50px;
+    padding-top: 0;
+    bottom: -240px;
+    transition: transform 0.3s;
+    position: fixed;
+    z-index: 400;
+}
+
+/* CONTENEDOR DONDE SE VISUALIZA LA FLECHA DEL FOOTER 
+=======================================================*/
+.footer-distributed .contenedorFlecha {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 10px;
+    padding-top: 0;
+}
+
+/* FLECHA DE ABAJO 
+=====================*/
+.footer-distributed:hover .flecha {
+    content: url('../../src/imagenes/flechaAbajo.svg');
+    padding-top: 0;
+    margin-top: 0px;
+    width: 60px;
+}
+
+/* FLECHA DE ARRIBA 
+====================*/
+.footer-distributed .flecha {
+    content: url('../../src/imagenes/flechaArriba.svg');
+    padding-top: 0;
+    /* margin-top: -80px; */
+    margin-bottom: 10px;
+    width: 60px;
+}
+
+/* APARECE EL FOOTER AL HACER HOVER 
+=====================================*/
+.footer-distributed:hover {
+    transform: translateY(-240px);
+}
+
+/* ALINEACIÓN CONTENIDO 
+=========================*/
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right {
+    display: inline-block;
+}
+
+/* APARTADO DEL FOOTER IZQUIERDO IZQUIERDA 
+============================================*/
+.footer-distributed .footer-left {
+    width: 40%;
+}
+
+/* LOGO DE LA EMPRESA 
+=======================*/
+.footer-distributed h3 {
+    margin: 0;
+    text-align: center;
+}
+
+/* CONTENEDOR DE LOS LINKS 
+============================*/
+.footer-distributed .footer-links {
+    color: #ffffff;
+    margin-top: 10px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* LINKS 
+==========*/
+.footer-distributed .footer-links a {
+    display: inline-block;
+    line-height: 1.8;
+    font-weight: 400;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* CRÉDITOS 
+=============*/
+.footer-distributed .footer-company-name {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: normal;
+    justify-content: center;
+    display: flex;
+    margin: 0;
+}
+
+/* APARTADO DEL FOOTER DERECHO CENTRADO 
+=========================================*/
+.footer-distributed .footer-center {
+    width: 35%;
+    vertical-align: top;
+}
+
+/* ICONOS DE CONTACTO 
+=======================*/
+.footer-distributed .footer-center i {
+    background-color: #4ba63b;
+    color: #ffffff;
+    font-size: 25px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 42px;
+    margin: 10px 15px;
+}
+
+/* ICONO DE CORREO ELECTRÓNICO 
+================================*/
+.footer-distributed .footer-center i.fa-envelope {
+    font-size: 17px;
+    line-height: 38px;
+}
+
+/* TEXTO ICONOS 
+=================*/
+.footer-distributed .footer-center p {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: 400;
+    vertical-align: middle;
+    margin: 0;
+}
+
+/* TEXTO 1 DE LA UBICACIÓN 
+============================*/
+.footer-distributed .footer-center p span {
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* COLOR DEL TEXTO DEL CORREO 
+===============================*/
+.footer-distributed .footer-center p a {
+    color: #4ba63b;
+    text-decoration: none;
+    ;
+}
+
+/* SEPARADOR DE LOS LINKS 
+===========================*/
+.footer-distributed .footer-links a:before {
+    content: "|";
+    font-weight: 100;
+    font-size: 30px;
+    left: 0;
+    color: #4ba63b;
+    display: inline-block;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* QUITA EL SEPARADOR INICIAL DEL PRIMER LINK 
+===============================================*/
+.footer-distributed .footer-links .link-1:before {
+    content: none;
+}
+
+/* CONTENIDO IZQUIERDO DEL FOOTER ACERCA DE 
+=============================================*/
+.footer-distributed .footer-right {
+    width: 20%;
+    vertical-align: top;
+}
+
+/* TEXTO DEL ACERCA DE 
+========================*/
+.footer-distributed .footer-company-about {
+    line-height: 20px;
+    color: #92999f;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0;
+    text-align: center;
+}
+
+/* TITULO DEL ACERCA DE 
+=========================*/
+.footer-distributed .footer-company-about span {
+    text-align: center;
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* CONTENEDOR DE ICONOS DE REDES SOCIALES 
+========================================================*/
+.footer-distributed .footer-icons {
+    margin-top: 25px;
+    text-align: center;
+}
+
+/* ICONOS DE REDES SOCIALES 
+=============================*/
+.footer-distributed .footer-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: #4ba63b;
+    border-radius: 3px;
+
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+/* FOOTER RESPONSIVE 
+======================*/
+@media (max-width: 880px) {
+
+    /* CONTENEDOR DE LA PAGINA 
+    ============================*/
+    .contenedorCont {
+        margin-bottom: 0;
+    }
+
+    /* CONTENEDOR FOOTER 
+    ======================*/
+    .footer-distributed {
+        font: bold 14px sans-serif;
+        position: relative;
+    }
+
+    /* QUITA LA ACCIÓN DEL HOVER EN EL FOOTER
+    ===========================================*/
+    .footer-distributed:hover {
+        transform: translateY(0px);
+    }
+
+    /* ALINEACIÓN DEL CONTENIDO 
+    =============================*/
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    /* ICONOS DE CONTACTO */
+    .footer-distributed .footer-center i {
+        margin-left: 0;
+    }
+    /* CONTENEDOR DONDE SE VISUALIZA LA FLECHA DEL FOOTER 
+    =======================================================*/
+    .footer-distributed:hover .flecha {
+        content: '';
+
+    }
+    .footer-distributed .flecha {
+        content: '';
+    }
+
+}
+
+.sticky-top {
+    z-index: 800;
+}
+
+/* ==============================================================
+                        PANTALLA DE CARGA 
+=================================================================*/
+
+/* CONTENEDOR DE CARGA 
+========================*/
+.dots {
+    width: var(--size);
+    height: var(--size);
+    position: fixed;
+    margin-top: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 1000;
+    background-color: #00000085;
+    backdrop-filter: blur(1.5px);
+    overflow: hidden;
+}
+
+/* CONTENIDO DE LA PANTALLA DE CARGA 
+======================================*/
+.dot {
+    width: var(--size);
+    height: var(--size);
+    animation: dwl-dot-spin calc(var(--speed) * 5) infinite linear both;
+    animation-delay: calc(var(--i) * var(--speed) / (var(--dot-count) + 2) * -1);
+    rotate: calc(var(--i) * var(--spread) / (var(--dot-count) - 1));
+    position: absolute;
+    filter: drop-shadow(0 0 10px #000000);
+}
+
+.dot::before {
+    content: "";
+    display: block;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    background-color: var(--color);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    bottom: 0;
+    left: 50%;
+}
+
+/* ANIMACIONES 
+================*/
+@keyframes dwl-dot-spin {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+        opacity: 1;
+    }
+
+    2% {
+        transform: rotate(20deg);
+        animation-timing-function: linear;
+        opacity: 1;
+    }
+
+    30% {
+        transform: rotate(180deg);
+        animation-timing-function: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+        opacity: 1;
+    }
+
+    41% {
+        transform: rotate(380deg);
+        animation-timing-function: linear;
+        opacity: 1;
+    }
+
+    69% {
+        transform: rotate(520deg);
+        animation-timing-function: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+        opacity: 1;
+    }
+
+    76% {
+        opacity: 1;
+    }
+
+    76.1% {
+        opacity: 0;
+    }
+
+    80% {
+        transform: rotate(720deg);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+/*  INPUT TIPO CHECKBOX 
+=========================*/
+.containerCheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.containerCheck {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    /* animation: jello-horizontal 0.9s both; */
+}
+
+.checkmark:hover {
+    animation: jello-horizontal 0.9s both;
+}
+
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+.containerCheck input:checked~.checkmark {
+    background-color: royalblue;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.containerCheck input:checked~.checkmark:after {
+    display: block;
+}
+
+.containerCheck .checkmark:after {
+    left: 0.50em;
+    top: 0.30em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid white;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+}
+
+@keyframes jello-horizontal {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}

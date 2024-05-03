@@ -1,0 +1,30 @@
+{
+    "name": "kevinalvarez/gps-ingenieria",
+    "autoload": {
+        "psr-4": {
+            "Kevinalvarez\\GpsIngenieria\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kvnprog",
+            "email": "kevin_mundo@hotmail.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^2.0",
+        "mpdf/mpdf": "^6.0",
+        "tecnickcom/tcpdf": "^6.6",
+        "fpdf/fpdf": "1.86.0",
+        "phpmailer/phpmailer": "^6.8",
+        "phpoffice/phpexcel": "*",
+        "phpoffice/phpspreadsheet": "^2.0"
+    },
+
+    "config": {
+        "platform": {
+            "php": "8.0"
+        }
+    }
+    
+}
