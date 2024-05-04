@@ -9,6 +9,7 @@ function abrirSeccion(opcion) {
     document.getElementById("uploadDataProducts").style.display = 'none';
     document.getElementById("generalInventory").style.display = 'none';
     document.getElementById("responsiveCatalog").style.display = 'none';
+    document.getElementById("returnsCatalog").style.display = 'none';
 
     // MUESTRA LA SECCION SELECCIONADA
     switch (opcion) {
@@ -34,6 +35,10 @@ function abrirSeccion(opcion) {
         case 6:
             document.getElementById("responsiveCatalog").style.display = 'flex';
             updateResponsiveCatalog();
+            break;
+        case 7:
+            document.getElementById("returnsCatalog").style.display = 'flex';
+            getReturns();
             break;
         default:
             break;
@@ -815,5 +820,171 @@ function updateResponsiveCatalog(){
         if(data["resultado"] == 0) {
             
         }
+    });
+}
+
+// DEVOLUCIONES
+function generarReturns(id_responsiva){
+    $("#modalReturns").modal('show');
+
+    var tableReturnsList = document.getElementById('tableReturnsList');
+    var contTable = '';
+    tableReturnsList.innerHTML = contTable;
+
+    pantallaCarga('on');
+    
+    fetch("../../productos/php/getReturnsListAJAX.php?idResponsiva="+id_responsiva, { method: "GET" })
+    .then(response => response.json())
+    .then(data => {
+        pantallaCarga('off');
+
+        if (data["resultado"] == 1) {
+            contenidoTabla = '<thead class="sticky-top">'+
+                                '<tr>'+
+                                    '<th class="text-center">#</th>'+
+                                    '<th class="text-center">Número de parte</th>'+
+                                    '<th class="text-center">Descripción</th>'+
+                                    '<th class="text-center">Serial</th>'+
+                                    '<th class="text-center"></th>'+
+                                '</tr>'+
+                            '</thead>';
+            contenidoTabla += '<tbody>';
+            
+                for (var i = 0; i < data["noDatos"]; i++) {
+            
+                    var id_inventario = data[i]["id_inventario"];
+                    var id_producto = data[i]["id_producto"];
+                    var no_serial = data[i]["no_serial"];
+                    var no_parte = data[i]["no_parte"];
+                    var descripcion = data[i]["descripcion"];
+                    var fecha_registro = data[i]["fecha_registro"];
+                    var tipo_movimiento = data[i]["tipo_movimiento"];
+                    var indice = i+1;
+    
+                    contenidoTabla += '<tr>';
+                        contenidoTabla += '<td class="text-center">'+indice+'</td>';
+                        contenidoTabla += '<td class="text-center">'+no_parte+'</td>';
+                        contenidoTabla += '<td class="text-center">'+descripcion+'</td>';
+                        contenidoTabla += '<td class="text-center">'+no_serial+'</td>';
+                        contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='Devolver' class='cont-icono-tbl' onclick=\"regresarReturnInv("+id_inventario+")\"><i class='fa-solid fa-x fa-xl'></i></div></div></td>";
+    
+                    contenidoTabla += '</tr>';
+                }
+
+            contenidoTabla += '</tbody>';
+            tableReturnsList.innerHTML = contenidoTabla;
+        }
+        if(data["resultado"] == 0) {
+            alertImage('ERROR', 'Ocurrió un error, intentalo de nuevo.', 'error');
+        }
+
+    });
+}
+
+function regresarReturnInv(id_inventario){
+    var color = '#FFFFFF';
+    var icono = 'warning';
+    switch (icono) {
+        case 'warning':
+            color = "#03B559";
+            color2 = "#B50309";
+            break;
+    }
+    swal.fire({
+        title: "ATENCIÓN",
+        text: "¿Está seguro que deseas devolver al inventario?",
+        icon: icono,
+        showCancelButton: true,
+        confirmButtonText: 'SI',
+        confirmButtonColor: color,
+        cancelButtonText: 'NO',
+        cancelButtonColor: color2,
+        allowOutsideClick: false
+
+    }).then((result) => {
+        if (result.isConfirmed) {
+            
+            pantallaCarga('on');
+            
+            const options = {
+                method: "GET"
+            };
+
+            fetch("../../productos/php/returnsProductInventaryAJAX.php?id_inventario=" + id_inventario, options)
+            .then(response => response.json())
+            .then(data => {
+
+                if (data[0]["resultado"] == 1) {
+                    alertImage('EXITO', 'Se devolvio al inventario correctamente.', 'success');
+                    pantallaCarga('off');
+                } else {
+                    alertImage('ERROR', 'Error al tratar de devolver al inventario, intentalo de nuevo.', 'error')
+                    pantallaCarga('off');
+                }
+                updateResponsiveCatalog();
+                $('#modalReturns').modal('hide');
+
+            });
+        }
+    })
+}
+
+function getReturns(){
+
+    var frmFiltros = document.getElementById('frmFiltrosReturnsCatalog');
+    var numParte = frmFiltros.filtroNParte.value;
+    var descripcion = frmFiltros.filtroDescripcion.value;
+    var numSerie = frmFiltros.filtroNoSerie.value;
+    var fechaInicio = frmFiltros.filtroFechaInicio.value;
+    var fechaFin = frmFiltros.filtroFechaFin.value;
+
+    var tableReturns = document.getElementById('tablaReturns');
+    var contTable = '';
+    tableReturns.innerHTML = contTable;
+
+    pantallaCarga('on');
+    
+    fetch("../../productos/php/bringReturnsAJAX.php?numParte="+numParte+"&descripcion="+descripcion+"&numSerie="+numSerie+"&fechaInicio="+fechaInicio+"&fechaFin="+fechaFin, { method: "GET" })
+    .then(response => response.json())
+    .then(data => {
+        pantallaCarga('off');
+
+        if (data["resultado"] == 1) {
+            contenidoTabla = '<thead class="sticky-top">'+
+                                '<tr>'+
+                                    '<th class="text-center">#</th>'+
+                                    '<th class="text-center">Fecha devolución</th>'+
+                                    '<th class="text-center">Num. parte</th>'+
+                                    '<th class="text-center">Descripción</th>'+
+                                    '<th class="text-center">Serial</th>'+
+                                '</tr>'+
+                            '</thead>';
+            contenidoTabla += '<tbody>';
+            
+                for (var i = 0; i < data["noDatos"]; i++) {
+            
+                    var fechadevolucion = data[i]["fechadevolucion"];
+                    var no_parte = data[i]["no_parte"];
+                    var descripcion = data[i]["descripcion"];
+                    var no_serial = data[i]["no_serial"];
+    
+                    var indice = i+1;
+    
+                    contenidoTabla += '<tr>';
+                        contenidoTabla += '<td class="text-center">'+indice+'</td>';
+                        contenidoTabla += '<td class="text-center">'+fechadevolucion+'</td>';
+                        contenidoTabla += '<td class="text-center">'+no_parte+'</td>';
+                        contenidoTabla += '<td class="text-center">'+descripcion+'</td>';
+                        contenidoTabla += '<td class="text-center">'+no_serial+'</td>';
+                    contenidoTabla += '</tr>';
+                }
+
+            contenidoTabla += '</tbody>';
+            tableReturns.innerHTML = contenidoTabla;
+        }
+        if(data["resultado"] == 0) {
+            alertImage('ERROR', 'Ocurrió un error, intentalo de nuevo.', 'error');
+        }
+
     });
 }
