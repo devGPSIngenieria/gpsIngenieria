@@ -183,9 +183,12 @@ if (!function_exists('pintarNavBar')) {
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/gpsIngenieria/menuPrincipal/php/menuPrincipal.php" style="font-weight: bold; color: #438c36">Inicio</a>
                   </li>
+
+                  <!-- COMENTADO
                   <li class="nav-item">
                     <a class="nav-link" href="#">Acerca de</a>
                   </li>
+                  -->
 
                   <!-- COMENTADO
                   <li class="nav-item dropdown">
@@ -199,9 +202,11 @@ if (!function_exists('pintarNavBar')) {
                   </li> 
                   -->
 
+                  <!-- COMENTADO
                   <li class="nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                   </li>
+                  -->
                 </ul>
                 
                 <div class="d-flex style-nav-fecha">

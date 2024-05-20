@@ -561,6 +561,20 @@ body, html{
     max-height: 500px;
 }
 
+.table-busqueda{
+    transition: all 3.0s ease;
+    max-height:30vh;  
+    position: fixed;
+    max-height: 30vh;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    z-index: 90;
+    margin: 0px;
+    padding: 0px;
+    border-top:30px;
+    box-shadow: rgb(0, 0, 0.5) 0px 5px 30px;
+}
 /* FONDO
 =========*/
 table {

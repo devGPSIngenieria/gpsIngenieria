@@ -34,7 +34,7 @@
                             <div class="row d-flex justify-content-center">
                             
                                 <?php if(checarPermisosArea($_SESSION['usuarioid'], 3)){ ?>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="hexagon-item">
                                             <div class="hex-item">
                                                 <div></div> <div></div> <div></div>
@@ -57,7 +57,7 @@
                                 <?php } ?>
 
                                 <?php if(checarPermisosArea($_SESSION['usuarioid'], 4)){ ?>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="hexagon-item">
                                             <div class="hex-item">
                                                 <div></div> <div></div> <div></div>
@@ -72,6 +72,30 @@
                                                         <i id='iconoMPanal'><i class="fa-solid fa-boxes-stacked fa-2xl"></i></i>
                                                     </span>
                                                     <span class="title">Productos</span>
+                                                </span>
+                                                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
+                                            </a>    
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+                                
+                                <?php if(checarPermisosArea($_SESSION['usuarioid'], 6)){ ?>
+                                    <div class="col-lg-4">
+                                        <div class="hexagon-item">
+                                            <div class="hex-item">
+                                                <div></div> <div></div> <div></div>
+                                            </div>
+                                            <div class="hex-item">
+                                                <div></div> <div></div> <div></div>
+                                            </div>
+                                            
+                                            <a  class="hex-content" onclick="abrirTools()">
+                                                <span class="hex-content-inner">
+                                                    <span class="icon">
+                                                        <i id='iconoMPanal'><i class="fa-solid fa-screwdriver-wrench fa-2xl"></i></i>
+                                                    </span>
+                                                    <span class="title">Herramientas para inventario</span>
                                                 </span>
                                                 <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z" fill="#ffffff"></path></svg>
                                             </a>    
