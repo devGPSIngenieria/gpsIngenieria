@@ -268,7 +268,7 @@ function colocaNA(checkbox) {
     var input = row.querySelector("input[type='text']");
 
     if (checkbox.checked) {
-        if (input) {
+        if (input) {|
             input.disabled = true;
             input.value = 'NA';
         }
@@ -285,6 +285,10 @@ function uploadDataProducts() {
 
     // Obtener el formulario
     const form = document.getElementById("frmExcelUpload");
+
+    if(form.archivo.value == ""){
+        alertImage('ERROR', 'Selecciona un archivo de excel.', 'error');
+    }
     // Crear un objeto FormData para recopilar los datos del formulario
     const formData = new FormData(form);
     // Realizar la solicitud Fetch
