@@ -1,6 +1,6 @@
 //funcion para revisar la adición de actualizado de actualizado
 window.addEventListener("load", (event) => {
-    const SOFTWARE_VERSION_JAVA="1.2";
+    const SOFTWARE_VERSION_JAVA="1.3";
     if(SOFTWARE_VERSION_JAVA!=SOFTWARE_VERSION_PHP)
     alertImage('¡Atención!','Algunos archivos estan desactualizados, por favor teclee ctrl+F5 para recargar. Si el problema continua comuniquelo al administrador del sistema (JS='+SOFTWARE_VERSION_JAVA+':PHP='+SOFTWARE_VERSION_PHP+')' ,'warning',null,null);
 });

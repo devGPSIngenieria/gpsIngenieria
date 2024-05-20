@@ -268,7 +268,7 @@ function colocaNA(checkbox) {
     var input = row.querySelector("input[type='text']");
 
     if (checkbox.checked) {
-        if (input) {|
+        if (input) {
             input.disabled = true;
             input.value = 'NA';
         }
