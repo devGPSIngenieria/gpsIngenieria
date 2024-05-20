@@ -1,6 +1,6 @@
 <?php
 //funcion para revisar la adición de actualizado de actualizado
-$SOFTWARE_VERSION_PHP="1.2";
+$SOFTWARE_VERSION_PHP="1.3";
 
 // CHECA EL USUARIO EXISTENTE EN LA BD
 if (!function_exists('checarLogin')) {
