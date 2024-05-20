@@ -74,7 +74,7 @@
             </table>
         </div>
 
-        <div class="table-busqueda">
+        <div class="table-busqueda table-responsive">
             <table class="table" id="tablaProductosBuscador"></table>
         </div>
        
