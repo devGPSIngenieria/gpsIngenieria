@@ -1,11 +1,6 @@
 <?php
 
-include "../../fGenerales/bd/conexion.php";
-require '../../vendor/autoload.php';
-
 use Fpdf\Fpdf as Fpdf;
-
-createPDFSell(8);
 
 function createPDFSell($idSell)
 {
@@ -144,7 +139,7 @@ function createPDFSell($idSell)
     $pdf->Ln();
     $pdf->SetTextColor(0, 0, 0);
     
-    $pdf->Image('../../src/imagenes/firm-12.jpg', 0, 0, 620, 563);
+    //$pdf->Image('../../src/imagenes/firm-12.jpg', 0, 0, 620, 563);
 
     // $pdf->Cell(30, $ancho, "", "", 0, "L");
     // $pdf->Cell(40, $ancho, "Firma Empleado", "", 0, "C");
@@ -154,11 +149,11 @@ function createPDFSell($idSell)
 
     $pdfFilePath = '../../ventas/src/pdfSells/sell'.$idSell.'.pdf';
 
-   // $pdf->Output($pdfFilePath, 'F');
-    $pdf->Output('I');
+   $pdf->Output($pdfFilePath, 'F');
+   // $pdf->Output('I');
 
-    //$server = "http://192.184.24.85";
-    $server = "https://inggpsmexico.com";
+    $server = "http://192.168.1.157";
+    //$server = "https://inggpsmexico.com";
     return $server."/gpsIngenieria/ventas/src/pdfSells/sell".$idSell.".pdf";
 }
 

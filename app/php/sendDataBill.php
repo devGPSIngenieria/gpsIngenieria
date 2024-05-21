@@ -1,5 +1,6 @@
 <?php 
 
+
 include "../../fGenerales/bd/conexion.php";
 include "../../fGenerales/php/funciones.php";
 include "createPDFSell.php";
@@ -47,19 +48,18 @@ function createInsertSell($type,$arrData,$idFirmClient,$idFirmEmployee) {
     
     $connInsertSell->conn->query($queryInsertSell);
 
-    createDataSellForItem(1,$arrData->arrIdproduct,$arrData->arrAccount,$connInsertSell->conn->insert_id);
+    createDataSellForItem(1,$arrData->arrProduct,$connInsertSell->conn->insert_id);
 
     return $connInsertSell->conn->insert_id;
 
 }
 
-function createDataSellForItem($result,$dataProducts,$dataAccount,$idSell) {
-  $dataIds = json_decode($dataProducts);
-  $dataAccount = json_decode($dataAccount);
-
-  foreach($dataIds as $index => $id) {
+function createDataSellForItem($result,$dataProducts,$idSell) {
+  $dataProducts = json_decode($dataProducts);
+  
+  foreach($dataProducts as $index => $element) {
     $connFindInventoryActive = new conexion;
-    $queryFindInventoryActive = "SELECT id_inventario FROM inventario i  where id_producto = ".$id." AND id_estado  = 1 limit ".$dataAccount[$index];
+    $queryFindInventoryActive = "SELECT id_inventario FROM inventario i  where id_producto = ".$element->id." AND id_estado  = 1 limit ".$element->count;
     $result = $connFindInventoryActive->conn->query($queryFindInventoryActive);
 
     foreach($result->fetch_all() as $data) {
