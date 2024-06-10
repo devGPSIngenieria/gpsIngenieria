@@ -129,7 +129,7 @@
                                 <div class="col-sm-12 col-md-3">
                                     <!-- FILTRO POR CATEGORÍA -->
                                     <div class="inputContainer">
-                                        <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Filtrar por categoría" onchange="actualizaCatalogoProductos()">
+                                        <select id="filtroCategoria" name="filtroCategoria" class="inputField" required="" type="text" placeholder="Filtrar por categoría" onchange="actualizaCatalogoProductos(); colocaSubcategoria('frmFiltosCatalogoProd');">
                                             <option value=0 selected>Todas</option>
                                             <?php
                                                 $conexionCategorias = new conexion;
@@ -151,17 +151,7 @@
                                     <!-- FILTRO POR CATEGORÍA -->
                                     <div class="inputContainer">
                                         <select id="filtroSubcategoria" name="filtroSubcategoria" class="inputField" required="" type="text" placeholder="Filtrar por subcategoría" onchange="actualizaCatalogoProductos()">
-                                            <option value=0 selected>Todas</option>
-                                            <?php
-                                                $conexionSubcategorias = new conexion;
-                                                $querySubcategorias = "SELECT * FROM subcategoria";
-                                                $subcategorias = $conexionSubcategorias->conn->query($querySubcategorias);
-
-                                                foreach ($subcategorias->fetch_all() as $index => $subcategoria) {
-
-                                                    print_r("<option value=\"" . $subcategoria[0] . "\" >" . $subcategoria[1] . "</option>");
-                                                }
-                                            ?>
+                                            <option value=0 selected></option>
                                         </select>
                                         <label class='usernameLabel' for='filtroSubcategoria'>Subcategoría</label>
                                         <i class="userIcon fa-regular fa-object-ungroup"></i>
@@ -244,7 +234,7 @@
 
                             <div class="col-sm-12 col-md-3">
                                 <div class="inputContainer">
-                                    <select type="text" id="categoria" name="categoria" class="inputField" required="" placeholder="Seleccione categoría">
+                                    <select type="text" id="filtroCategoria" name="filtroCategoria" class="inputField" required="" placeholder="Seleccione categoría" onchange="colocaSubcategoria('frmRegistroProductos');">
                                         <option value=0 selected>...</option>
                                         <?php
                                             $conexionCategorias = new conexion;
@@ -256,26 +246,16 @@
                                             }
                                         ?>
                                     </select>
-                                    <label class='usernameLabel' for='categoria'>Categoría</label>
+                                    <label class='usernameLabel' for='filtroCategoria'>Categoría</label>
                                     <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-3">
                                 <div class="inputContainer">
-                                    <select type="text" id="subcategoria" name="subcategoria" class="inputField" required="" placeholder="Seleccione subcategoría">
-                                        <option value=0 selected>...</option>
-                                        <?php
-                                            $conexionCategorias = new conexion;
-                                            $queryCategorias = "SELECT * FROM subcategoria";
-                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
-
-                                            foreach ($categorias->fetch_all() as $index => $categoria) {
-                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
-                                            }
-                                        ?>
+                                    <select type="text" id="filtroSubcategoria" name="filtroSubcategoria" class="inputField" required="" placeholder="Seleccione subcategoría">
                                     </select>
-                                    <label class='usernameLabel' for='subcategoria'>Subcategoría</label>
+                                    <label class='usernameLabel' for='filtroSubcategoria'>Subcategoría</label>
                                     <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
                             </div>

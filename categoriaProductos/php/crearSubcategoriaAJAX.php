@@ -3,9 +3,10 @@
     include "../../fGenerales/bd/conexion.php";
 
     $subcategoria = filter_input(INPUT_GET, "subcategoria");
-
+    $categoria = filter_input(INPUT_GET, "categoria");
+echo $categoria;
     $conexionCrearCategoria = new conexion;
-    $queryCrearCategoria = "INSERT INTO subcategoria (nombre, id_estado) VALUES ('".$subcategoria."', 1)";
+    $queryCrearCategoria = "INSERT INTO subcategoria (nombre, id_estado, id_categoria) VALUES ('".$subcategoria."', 1, $categoria)";
 
     $resultado = [];
 

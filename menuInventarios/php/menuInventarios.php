@@ -33,7 +33,7 @@
                         <div class="container">
                             <div class="row d-flex justify-content-center">
                             
-                                <?php if(checarPermisosArea($_SESSION['usuarioid'], 3)){ ?>
+                                <?php //if(checarPermisosArea($_SESSION['usuarioid'], 3)){ ?>
                                     <div class="col-lg-4">
                                         <div class="hexagon-item">
                                             <div class="hex-item">
@@ -54,9 +54,9 @@
                                             </a>
                                         </div>
                                     </div>
-                                <?php } ?>
+                                <?php //} ?>
 
-                                <?php if(checarPermisosArea($_SESSION['usuarioid'], 4)){ ?>
+                                <?php //if(checarPermisosArea($_SESSION['usuarioid'], 4)){ ?>
                                     <div class="col-lg-4">
                                         <div class="hexagon-item">
                                             <div class="hex-item">
@@ -77,10 +77,10 @@
                                             </a>    
                                         </div>
                                     </div>
-                                <?php } ?>
+                                <?php //} ?>
 
                                 
-                                <?php if(checarPermisosArea($_SESSION['usuarioid'], 6)){ ?>
+                                <?php //if(checarPermisosArea($_SESSION['usuarioid'], 6)){ ?>
                                     <div class="col-lg-4">
                                         <div class="hexagon-item">
                                             <div class="hex-item">
@@ -101,7 +101,7 @@
                                             </a>    
                                         </div>
                                     </div>
-                                <?php } ?>
+                                <?php //} ?>
 
                                 <!-- <div class="col-lg-3">
                                     <div class="hexagon-item">

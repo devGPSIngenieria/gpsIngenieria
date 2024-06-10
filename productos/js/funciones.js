@@ -54,7 +54,7 @@ function crearProducto() {
     const formulario = document.getElementById('frmRegistroProductos');
     const formData = new FormData(formulario);
 
-    if (formData.get('nParte') != '' && formData.get('descripcion') != '' && formData.get('precioPublico') != '' && formData.get('precioVenta') && formData.get('categoria') != 0 && formData.get('subcategoria') != 0) {
+    if (formData.get('nParte') != '' && formData.get('descripcion') != '' && formData.get('precioPublico') != '' && formData.get('precioVenta') && formData.get('filtroCategoria') != 0 && formData.get('filtroSubcategoria') != 0) {
 
         pantallaCarga('on');
 
