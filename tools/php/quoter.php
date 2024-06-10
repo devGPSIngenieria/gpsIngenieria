@@ -62,14 +62,6 @@
                         <th style="background-color: #565555 !important;">Total</th>
                         <th style="background-color: #cfcfcf !important; color:#000000;" class="SubTotalProductos"></th>
                     </tr>
-                    <tr>
-                        <th>T.C</th>
-                        <th style="background-color: #bbb9b9 !important; color:#000000;">$18.50</th>
-                    </tr>
-                    <tr>
-                        <th style="background-color: #565555 !important;">Total pesos</th>
-                        <th style="background-color: #cfcfcf !important; color:#000000;" class="totalVenta"></th>
-                    </tr>
                 </tfoot>
             </table>
         </div>

@@ -68,7 +68,7 @@ function bringProducts(){
                         var indice = i+1;
 
                         contenidoTabla += `
-                            <tr onclick="placeProduct('${encodeURIComponent(id_producto)}', '${encodeURIComponent(no_parte)}', '${encodeURIComponent(descripcion)}', '${encodeURIComponent(precio_public)}')">
+                            <tr onclick="placeProduct('${encodeURIComponent(id_producto)}', '${encodeURIComponent(no_parte)}', '${encodeURIComponent(descripcion)}', '${encodeURIComponent(precio_venta)}')">
                                 <td class="text-center">${indice}</td>
                                 <td class="text-center">${no_parte}</td>
                                 <td class="text-center">${descripcion}</td>
@@ -95,11 +95,15 @@ function bringProducts(){
     }
 }
 
-function placeProduct(id_producto, no_parte, descripcion, precio_public) {
+function placeProduct(id_producto, no_parte, descripcion, precio_venta) {
+    var table = document.getElementById('tablaProductosBuscador');
+    table.innerHTML = '';
+    document.getElementById("frmQuoter").reset();
+
     var id_producto_decoded = decodeURIComponent(id_producto);
     var no_parte_decoded = decodeURIComponent(no_parte);
     var descripcion_decoded = decodeURIComponent(descripcion);
-    var precio_public_decoded = decodeURIComponent(precio_public);
+    var precio_venta_decoded = decodeURIComponent(precio_venta);
 
     var tabla = document.getElementById("tablaTemplateCotizador").getElementsByTagName('tbody')[0];
 
@@ -116,7 +120,7 @@ function placeProduct(id_producto, no_parte, descripcion, precio_public) {
 
     celda1.textContent = no_parte_decoded;
     celda2.textContent = descripcion_decoded;
-    celda3.textContent = "$" + precio_public_decoded;
+    celda3.textContent = "$" + precio_venta_decoded;
     celda4.textContent = "";
     celda4.style.backgroundColor = "#d6e7ff";
     celda5.textContent = "$";
@@ -177,9 +181,9 @@ function placeProduct(id_producto, no_parte, descripcion, precio_public) {
         var SubTotalProductos = document.querySelectorAll(".SubTotalProductos");
         SubTotalProductos[0].textContent = "$" + sumarCeldasConClase('precioTotalProducto').toFixed(2);
 
-        var totalVenta = document.querySelectorAll(".totalVenta");
-        totalVenta[0].textContent = "$" + (( (SubTotalProductos[0].textContent).replace("$", "")) * (18.50)).toFixed(2);
-        totalVenta
+        // var totalVenta = document.querySelectorAll(".totalVenta");
+        // totalVenta[0].textContent = "$" + (( (SubTotalProductos[0].textContent).replace("$", "")) * (18.50)).toFixed(2);
+        // totalVenta
     }
 
     // SUMA LOS VALORES DE LAS CELDAS CON ESA CLASE 

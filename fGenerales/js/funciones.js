@@ -89,3 +89,51 @@ function descargarArchivo(url, nombreArchivo) {
     // Elimina el enlace del DOM después de la descarga
     document.body.removeChild(link);
 }
+
+//COLOCA LA SUBCATEGORIA UNA VEZ QUE SE SELECCIONA LA CATEGORIA
+function colocaSubcategoria(frm){
+    var frms= document.getElementById(frm);
+    var categoria = frms.filtroCategoria.value;
+    var subCategoria = frms.filtroSubcategoria;
+
+    // LIMPIAMOS LAS OPCIONES DEL SELECT
+    subCategoria.innerHTML = '';
+
+    if(categoria != 0)
+    {
+        const options = { method: "GET" };
+        var ruta = "../../categoriaProductos/php/relacionCategoriaSubCategoriaAJAX.php?idCategoria="+categoria;
+    
+        fetch(ruta, options)
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data);
+            if (data["resultado"] == 1) {
+                for (var i = 0; i < data["noDatos"]; i++) {
+
+                    var value = data[i]["value"];
+                    var name = data[i]["name"];
+
+                    var option = document.createElement("option");
+                    option.value = value;
+                    option.text = name;
+
+                    subCategoria.appendChild(option);
+
+                }
+            } else {
+
+                   var option = document.createElement("option");
+                   option.value = 0;
+                   option.text = '';
+                   subCategoria.appendChild(option);
+            }
+        });
+    } else {
+        var option = document.createElement("option");
+        option.value = 0;
+        option.text = '';
+        subCategoria.appendChild(option);
+    }
+}
