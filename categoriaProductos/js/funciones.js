@@ -83,14 +83,15 @@ function crearSubCategoria() {
 
     var formulario = document.getElementById("frmRegistroSubcategoria");
     var subCategoria = formulario.subcategoria.value;
+    var categoriaRelacion = formulario.relacionCategoria.value;
 
-    if(subCategoria != ''){
+    if(subCategoria != '' && categoriaRelacion != 0){
         
         pantallaCarga('on');
 
         const options = { method: "GET" };
 
-        fetch("../../categoriaProductos/php/crearSubcategoriaAJAX.php?subcategoria="+subCategoria, options)
+        fetch("../../categoriaProductos/php/crearSubcategoriaAJAX.php?subcategoria="+subCategoria+"categoria="+categoriaRelacion, options)
         .then(response => response.json())
         .then(data => {
 
@@ -105,7 +106,12 @@ function crearSubCategoria() {
             }
         })
     } else {
-        alertImage('Error', 'Llena el campo vació.', 'error');
+        if(subCategoria == ''){
+            alertImage('Error', 'Llena el campo subcategoría vació.', 'error');
+        }
+        if(categoriaRelacion == 0){        
+            alertImage('Error', 'Selecciona la categoría a la que pertenece.', 'error');
+        }
     }
 }
 

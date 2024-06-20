@@ -11,7 +11,7 @@ function abrirSeccion(opcion) {
             document.getElementById("catalogo").style.display = 'flex';
             break;
         case 2:
-            document.getElementById("registros").style.display = 'flex';
+            document.getElementById("registros").style.display = 'block';
             break;
         default:
             break;

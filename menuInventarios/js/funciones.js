@@ -13,3 +13,11 @@ function abrirReportes() {
 function abrirResponsivas(){
     window.open("../../responsivas/php/menuResponsivas.php","_self");
 }
+
+function abrirTools(){
+    window.open("../../tools/php/menuTools.php","_self");
+}
+
+function abrirPackages(){
+    window.open("../../packages/php/menuPackages.php","_self");
+}

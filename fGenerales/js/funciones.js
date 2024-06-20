@@ -1,6 +1,6 @@
 //funcion para revisar la adición de actualizado de actualizado
 window.addEventListener("load", (event) => {
-    const SOFTWARE_VERSION_JAVA="1.2";
+    const SOFTWARE_VERSION_JAVA="1.3";
     if(SOFTWARE_VERSION_JAVA!=SOFTWARE_VERSION_PHP)
     alertImage('¡Atención!','Algunos archivos estan desactualizados, por favor teclee ctrl+F5 para recargar. Si el problema continua comuniquelo al administrador del sistema (JS='+SOFTWARE_VERSION_JAVA+':PHP='+SOFTWARE_VERSION_PHP+')' ,'warning',null,null);
 });
@@ -88,4 +88,51 @@ function descargarArchivo(url, nombreArchivo) {
 
     // Elimina el enlace del DOM después de la descarga
     document.body.removeChild(link);
+}
+
+//COLOCA LA SUBCATEGORIA UNA VEZ QUE SE SELECCIONA LA CATEGORIA
+function colocaSubcategoria(frm){
+    var frms= document.getElementById(frm);
+    var categoria = frms.filtroCategoria.value;
+    var subCategoria = frms.filtroSubcategoria;
+
+    // LIMPIAMOS LAS OPCIONES DEL SELECT
+    subCategoria.innerHTML = '';
+
+    if(categoria != 0)
+    {
+        const options = { method: "GET" };
+        var ruta = "../../categoriaProductos/php/relacionCategoriaSubCategoriaAJAX.php?idCategoria="+categoria;
+    
+        fetch(ruta, options)
+        .then(response => response.json())
+        .then(data => {
+
+            if (data["resultado"] == 1) {
+                for (var i = 0; i < data["noDatos"]; i++) {
+
+                    var value = data[i]["value"];
+                    var name = data[i]["name"];
+
+                    var option = document.createElement("option");
+                    option.value = value;
+                    option.text = name;
+
+                    subCategoria.appendChild(option);
+
+                }
+            } else {
+
+                   var option = document.createElement("option");
+                   option.value = 0;
+                   option.text = '';
+                   subCategoria.appendChild(option);
+            }
+        });
+    } else {
+        var option = document.createElement("option");
+        option.value = 0;
+        option.text = '';
+        subCategoria.appendChild(option);
+    }
 }

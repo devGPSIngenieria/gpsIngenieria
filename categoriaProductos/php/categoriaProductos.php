@@ -201,6 +201,25 @@
                                     <i class="userIcon fa-solid fa-text-width"></i>
                                 </div>
                             </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="inputContainer">
+                                    <select id="relacionCategoria" name="relacionCategoria" class="inputField" required="" type="text" placeholder="Selecciona la categoria a la que pertenece">
+                                        <option value=0 selected>...</option>
+                                        <?php
+                                            $conexionCategorias = new conexion;
+                                            $queryCategorias = "SELECT * FROM categoria";
+                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                            foreach ($categorias->fetch_all() as $index => $categoria) {
+                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                            }
+                                        ?>
+                                    </select>
+                                        <label class='usernameLabel' for='relacionCategoria'>Categoría a la que pertecene</label>
+                                        <i class="userIcon fa-regular fa-object-ungroup"></i>
+                                </div>
+                            </div>
                             
                             <div class="contenedor-boton-gen">
                                 <div class="main_div">
