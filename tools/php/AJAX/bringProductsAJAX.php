@@ -3,7 +3,7 @@
     
     $resultados = [];
     
-    if ( isset($_GET['numParte']) && isset($_GET['descripcion']) ) {
+    if ( isset($_GET['numParte']) || isset($_GET['descripcion']) || isset($_GET['categoria']) || isset($_GET['subcategoria']) ) {
         
         $cadenaQuery = '';
         if($_GET['numParte'] != ''){
@@ -11,6 +11,12 @@
         }
         if($_GET['descripcion'] != ''){
             $cadenaQuery .= " AND p.descripcion LIKE '%" . $_GET['descripcion'] . "%'";
+        }
+        if($_GET['categoria'] != 0){
+            $cadenaQuery .= " AND p.id_categoria = " . $_GET['categoria'];
+        }
+        if($_GET['subcategoria'] != 0 && $_GET['subcategoria'] != ''){
+            $cadenaQuery .= " AND p.id_subcategoria = " . $_GET['subcategoria'];
         }
 
         $conexionProductos = new conexion;

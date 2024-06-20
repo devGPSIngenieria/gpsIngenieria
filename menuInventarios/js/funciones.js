@@ -17,3 +17,7 @@ function abrirResponsivas(){
 function abrirTools(){
     window.open("../../tools/php/menuTools.php","_self");
 }
+
+function abrirPackages(){
+    window.open("../../packages/php/menuPackages.php","_self");
+}
