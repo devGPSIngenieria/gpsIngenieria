@@ -28,11 +28,13 @@ function bringProducts(){
     var frmFiltros = document.getElementById('frmQuoter');
     var numParte = frmFiltros.filtroNParte.value;
     var descripcion = frmFiltros.filtroDescripcion.value;
+    var categoria = frmFiltros.filtroCategoria.value;
+    var subcategoria = frmFiltros.filtroSubcategoria.value;
 
-    if(numParte.trim() != '' || descripcion.trim() != ''){
+    if(numParte.trim() != '' || descripcion.trim() != '' || categoria != 0){
 
         const options = { method: "GET" };
-        var ruta = "../../tools/php/AJAX/bringProductsAJAX.php?numParte=" + numParte + "&descripcion=" + descripcion;
+        var ruta = "../../tools/php/AJAX/bringProductsAJAX.php?numParte=" + numParte + "&descripcion=" + descripcion + "&categoria=" + categoria + "&subcategoria=" + subcategoria;
 
         fetch(ruta, options)
         .then(response => response.json())

@@ -108,7 +108,6 @@ function colocaSubcategoria(frm){
         .then(response => response.json())
         .then(data => {
 
-            console.log(data);
             if (data["resultado"] == 1) {
                 for (var i = 0; i < data["noDatos"]; i++) {
 

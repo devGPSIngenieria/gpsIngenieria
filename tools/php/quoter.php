@@ -5,7 +5,7 @@
 
             <div class="row">
 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-3">
                     <!-- FILTRO POR NUMERO DE PARTE -->
                     <div class="inputContainer">
                         <input id="filtroNParte" name="filtroNParte" class="inputField" required="" type="text" placeholder="Filtrar por número de parte" onkeyup="bringProducts()">
@@ -14,12 +14,40 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-3">
                     <!-- FILTRO POR DESCRIPCIÓN -->
                     <div class="inputContainer">
                         <input id="filtroDescripcion" name="filtroDescripcion" class="inputField" required="" type="text" placeholder="Filtrar por descripción" onkeyup="bringProducts()">
                         <label class='usernameLabel' for='filtroDescripcion'>Descripción</label>
                         <i class="userIcon fa-solid fa-align-left"></i>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-3">
+                    <div class="inputContainer">
+                        <select type="text" id="filtroCategoria" name="filtroCategoria" class="inputField" required="" placeholder="Seleccione categoría" onchange="bringProducts(); colocaSubcategoria('frmQuoter');">
+                            <option value=0 selected>...</option>
+                            <?php
+                                $conexionCategorias = new conexion;
+                                $queryCategorias = "SELECT * FROM categoria";
+                                $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                foreach ($categorias->fetch_all() as $index => $categoria) {
+                                    print_r("<option value=\"" . $categoria[0] . "\">" . $categoria[1] . "</option>");
+                                }
+                            ?>
+                        </select>
+                        <label class='usernameLabel' for='filtroCategoria'>Categoría</label>
+                        <i class="userIcon fa-regular fa-object-ungroup"></i>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-3">
+                    <div class="inputContainer">
+                        <select type="text" id="filtroSubcategoria" name="filtroSubcategoria" class="inputField" required="" placeholder="Seleccione subcategoría" onchange="bringProducts()">
+                        </select>
+                        <label class='usernameLabel' for='filtroSubcategoria'>Subcategoría</label>
+                        <i class="userIcon fa-regular fa-object-ungroup"></i>
                     </div>
                 </div>
 
