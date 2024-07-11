@@ -29,7 +29,7 @@
                             <option value=0 selected>...</option>
                             <?php
                                 $conexionCategorias = new conexion;
-                                $queryCategorias = "SELECT * FROM categoria";
+                                $queryCategorias = "SELECT * FROM categoria WHERE id_estado = 1 and package = 0";
                                 $categorias = $conexionCategorias->conn->query($queryCategorias);
 
                                 foreach ($categorias->fetch_all() as $index => $categoria) {

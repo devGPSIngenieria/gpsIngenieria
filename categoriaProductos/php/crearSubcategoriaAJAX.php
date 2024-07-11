@@ -13,7 +13,7 @@ echo $categoria;
     if ($conexionCrearCategoria->conn->query($queryCrearCategoria)) {
 
         $conexionTraerCategorias = new conexion;
-        $queryTraerCategorias = "SELECT * FROM subcategoria";
+        $queryTraerCategorias = "SELECT * FROM subcategoria WHERE id_estado = 1 and package = 0";
     
         $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
 

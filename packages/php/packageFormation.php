@@ -22,7 +22,7 @@
                             <option value=0 selected>...</option>
                             <?php
                                 $conPackages = new conexion;
-                                $queryPackages = "SELECT * FROM packages";
+                                $queryPackages = "SELECT * FROM categoria WHERE id_estado = 1 and package = 1";
                                 $packages = $conPackages->conn->query($queryPackages);
 
                                 foreach ($packages->fetch_all() as $index => $package) {
@@ -45,7 +45,7 @@
 
                 <div class="contenedor-boton-gen">
                     <div class="main_div">
-                        <a onclick="">GUARDAR</a>
+                        <a onclick="createPackage()">GUARDAR</a>
                     </div>
                 </div>
             </div>

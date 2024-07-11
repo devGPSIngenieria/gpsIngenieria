@@ -17,5 +17,13 @@
                     </span>
                 </button>';
         }
+        if ($dato[1] == 20) {
+            echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(3)">
+                    <span class="button_lg">
+                        <span class="button_sl"></span>
+                        <span class="button_text">Cátalogo paquetes</span>
+                    </span>
+                </button>';
+        }
     }
 ?>

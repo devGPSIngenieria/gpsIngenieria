@@ -1,5 +1,5 @@
 <?php
-    include "../../fGenerales/bd/conexion.php";
+    include "../../../fGenerales/bd/conexion.php";
     
     $resultados = [];
     
@@ -10,12 +10,12 @@
             $cadenaQuery .= " AND nombre LIKE '%" . $_GET['nombre'] . "%'";
         }
 
-        //TRAER CATEGORIAS
-        $conexionTraerCategorias = new conexion;
-        $queryTraerCategorias = "SELECT * FROM categoria WHERE id_estado = 1 and package = 0 " . $cadenaQuery;
-        $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
+        //TRAER PACKAGES
+        $conexionTraerPackages = new conexion;
+        $queryTraerPackages = "SELECT * FROM categoria WHERE id_estado = 1 and package = 1 " . $cadenaQuery;
+        $datos = $conexionTraerPackages->conn->query($queryTraerPackages);
         
-        if ($conexionTraerCategorias->conn->query($queryTraerCategorias)) {
+        if ($conexionTraerPackages->conn->query($queryTraerPackages)) {
 
             $resultados["noDatos"] = $datos->num_rows;
 
