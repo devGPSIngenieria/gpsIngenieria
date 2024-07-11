@@ -26,7 +26,7 @@
                 
                 <div class="contenedor-boton-gen">
                     <div class="main_div">
-                        <a onclick="createPackage()">GUARDAR</a>
+                        <a onclick="registerPackage()">GUARDAR</a>
                     </div>
                 </div>
             </div>

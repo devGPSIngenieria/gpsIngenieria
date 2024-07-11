@@ -14,8 +14,8 @@
                     <!-- FILTRO POR FECHA FIN-->
                     <div class="inputContainer">
                         <input id="archivo" name="archivo" class="inputField" required="" type="file" placeholder="Selecciona archivo excel">
-                        <label class='usernameLabel' for='archivo'>Fecha fin</label>
-                        <i class="userIcon fa-solid fa-calendar-days"></i>
+                        <label class='usernameLabel' for='archivo'>Archivo Excel</label>
+                        <i class="userIcon fa-solid fa-file-excel"></i>
                     </div>
                 </form>
             </div>
