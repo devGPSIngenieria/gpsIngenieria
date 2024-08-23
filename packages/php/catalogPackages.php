@@ -17,8 +17,12 @@
                 </div>                
 
                 <div class="col-sm-12">
-                    <div class="table-responsive">
-                        <table id='tableCatalogPackage' class="table"></table>
+                    <div class="card bg-light mb-3">
+                        <div class="card-header"></div>
+                        <div class="table-responsive">
+                            <table id='tableCatalogPackage' class="table" style="box-shadow: none;"></table>
+                        </div>
+                        <div class="card-header"></div>
                     </div>
                 </div>
                 
