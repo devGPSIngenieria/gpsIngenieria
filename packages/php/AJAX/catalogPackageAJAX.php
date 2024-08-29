@@ -34,7 +34,7 @@
 
                 // TRAER PACKAGES
                 $conexionTraeProd = new conexion;
-                $queryTraeProd = "SELECT pp.numero_parte, pp.descripcion, p.id_producto"
+                $queryTraeProd = "SELECT pp.numero_parte, pp.id_prod_paq, pp.descripcion, p.id_producto"
                                 . " FROM packages p, pruducts_packages pp"      
                                 . " WHERE p.id_estado = 1 AND p.id_prod_paq = pp.id_prod_paq AND p.id_producto =" . $dato['id_producto'];
                 $datosP = $conexionTraeProd->conn->query($queryTraeProd);
@@ -42,6 +42,7 @@
                 if ($datosP && $datosP->num_rows > 0) {
                     foreach($datosP->fetch_all(MYSQLI_ASSOC) as $j => $datoP){
                         $resultados["paquetes"][$i]["packages"][$j] = $datoP;
+                        $resultados["id_prod_paq"][$i]["packages"][$j] = $datoP;
                     }
                 } else {
                     // $resultados["categorias"][$i]["packages"][$j];

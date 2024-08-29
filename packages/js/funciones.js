@@ -5,7 +5,7 @@ function abrirSeccion(opcion) {
 
     // OCULTA TODAS LAS SECCIONES
     document.getElementById("frmRegisterPackages").style.display = 'none';
-    document.getElementById("frmPackagesFormation").style.display = 'none';
+    document.getElementById("seccionInvPackages").style.display = 'none';
     document.getElementById("frmCatalogoPackages").style.display = 'none';
 
     // MUESTRA LA SECCION SELECCIONADA
@@ -14,7 +14,8 @@ function abrirSeccion(opcion) {
             document.getElementById("frmRegisterPackages").style.display = 'flex';
             break;
         case 2:
-            document.getElementById("frmPackagesFormation").style.display = 'flex';
+            document.getElementById("seccionInvPackages").style.display = 'flex';
+            actualizaCatalogoInventarioPaquetes();
             break;
         case 3:
             document.getElementById("frmCatalogoPackages").style.display = 'flex';
@@ -116,11 +117,12 @@ function traeCatalogoPackages() {
             var cadenaCategorias = "<tbody>";
             
             for (var i = 0; i < noDatos; i++) {
-                var categoria = data["paquetes"][i]; // Adjusted to match PHP output
+                var categoria = data["paquetes"][i]; 
                 var descripcion = categoria["descripcion"];
                 var precio = categoria["precio_public"];
                 var packages = categoria["packages"];
 
+                cadenaCategorias += "<tr><th colspan='2' class='text-center' style='height:20px;'><div class='cont-btn-tabla'><div class='cont-icono-tbl' onclick='agregarPaqueteFormado(" + JSON.stringify(categoria) + ")' title='Agregar paquete'><i class='fa-solid fa-clipboard-check fa-2xl'></i></div></div></th></tr>";
                 cadenaCategorias += "<tr><th colspan='2' class='text-center' style='height:20px;'>" + descripcion + "  ($" + precio + ")</th></tr>";
                 
                 if (packages.length > 0) {
@@ -147,7 +149,162 @@ function traeCatalogoPackages() {
     });
 }
 
+function agregarPaqueteFormado(data)
+{
+//------------------------------------------------------------------
+//          J.S.V
+//          08/08/2024
+//          DESCRIPCION:
+//              Función para agregar los paquetes que están en
+//              el catálogo de paquetes.
+//              
+//          versión.función - v.1.0    
+//------------------------------------------------------------------
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            // console.log(data);
+    Swal.fire({
+        title: 'Número de paquetes que quieres agregar',
+        input: 'number',
+        inputPlaceholder: 'Ingresa cantidad aquí',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: (number) => {
+            // Aquí puedes hacer algo con el valor ingresado por el usuario
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    if (number > 0 && number < 21) {
+                        resolve();
+                    } else {
+                        resolve(Swal.showValidationMessage('El mínimo para registrar es 1 y máximo 20'));
+                    }
+                }, 200);
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
 
+        var tablePaqAdd = document.getElementById('table-agregar-paquetes');
+        var contTable =  '';
+        tablePaqAdd.innerHTML = contTable;
+
+        var numPaquetes = result.value;
+
+        if(numPaquetes > 0)
+        {
+            for(var x = 0 ; x < numPaquetes ; x++)
+            {
+                var descripcion = data["descripcion"];
+                var precio = data["precio_public"];
+                var packages = data["packages"];
+                var idProd = data["id_producto"];
+
+                contTable += "<thead>";
+                    contTable += "<tr>";
+                        contTable += "<th colspan='3'>" + descripcion + "  ($" + precio + ")</th>";
+                    contTable += "</tr>";
+                    contTable += "<tr>";
+                        contTable += "<th>Número de parte</th>";
+                        contTable += "<th>Descripción</th>";
+                        contTable += "<th>Selección</th>";
+                    contTable += "</tr>";
+                contTable += "</thead>";
+
+                contTable += "<tbody>";
+                    for(var i = 0 ; i < packages.length ; i++)
+                    {
+                        var package = packages[i];
+                        var idPodPackage = package["id_prod_paq"];
+
+                        // Crea un array con los parámetros y conviértelo a JSON
+                        var valueArray = [x, idProd, idPodPackage];
+                        var jsonValue = JSON.stringify(valueArray);
+
+                        contTable += "<tr>";
+                            contTable += "<td style='background: #d5fccf;'>" + package["numero_parte"] + "</td>";
+                            contTable += "<td style='background: #d5fccf;'>" + package["descripcion"] + "</td>";
+                            // En el value el primer valor es la pasada del for, el segundo es el id del producto y el tercero es el id del producto del paquete
+                            contTable += "<td style='background: #d5fccf;'><input type='checkbox' class='checkbox-package-add' value='"+jsonValue+"'></td>";
+                        contTable += "</tr>";
+                    }
+                    contTable += "<tr>";
+                        contTable += "<td colspan='3' style='height:50px; background: #ffffff;'></td>";
+                    contTable += "</tr>";
+                contTable += "</tbody>";
+            }
+            tablePaqAdd.innerHTML = contTable;
+            myModal.show();
+        }
+    });
+}
+
+function guardarSeleccionPackages()
+{
+//------------------------------------------------------------------
+//          J.S.V
+//          08/08/2024
+//          DESCRIPCION:
+//              Función para traer todos los checkbox que el
+//              usuario selecciono, los cuales traen el id 
+//              del producto y el id del producto del paquete.
+//              
+//          versión.función - v.1.0    
+//------------------------------------------------------------------
+
+    // Obtiene todos los checkboxes con la clase 'checkbox-package-add'
+    const checkboxes = document.querySelectorAll('.checkbox-package-add');
+
+    // Array para almacenar los valores de los checkboxes seleccionados
+    const selectedValues = [];
+
+    // Variable para verificar si al menos un checkbox está seleccionado
+    let isAnyChecked = false;
+    
+    // Recorre todos los checkboxes
+    checkboxes.forEach(checkbox => {
+        // Verifica si el checkbox está seleccionado
+        if (checkbox.checked) {
+            // Añade el valor del checkbox al array
+            selectedValues.push(checkbox.value);
+            isAnyChecked = true;  // Marca que al menos uno está seleccionado
+        }
+    });
+    
+    // Si ninguno está seleccionado, muestra una advertencia
+    if (!isAnyChecked) {
+        alertify.warning('Debes seleccionar las casillas que desees para tu paquete.');
+    }
+    else
+    {
+        const options = { method: "GET" };
+        var ruta = '../php/AJAX/insertaPaqueteInvAJAX.php?array=' + selectedValues;
+        
+        pantallaCarga('on');
+
+        fetch(ruta, options)
+        .then(response => response.json())
+        .then(data => {
+            pantallaCarga('off');
+            $('#exampleModal').modal('hide');
+            switch(data['bandera']){
+
+                case 0:
+                    alertify.error('Ocurrió un error en el sistema, contacta con el administrador.');
+                    break;
+
+                    case 1:
+                        alertify.success('Se registraron los paquetes al inventario correctamente.');
+                        break;
+
+                        case 3:
+                            alertify.error('No existe nada en el inventario, el paquete no se registro correctamente.');
+                            break;
+            }
+
+        });
+    }
+}
 
 function createPackage()
 {
@@ -218,4 +375,121 @@ function addInputsProducts()
     inputGroup.appendChild(col1);
     inputGroup.appendChild(col2);
     container.appendChild(inputGroup);
+}
+
+function actualizaCatalogoInventarioPaquetes()
+{
+//------------------------------------------------------------------
+//          J.S.V
+//          08/08/2024
+//          DESCRIPCION:
+//              Función para actualizar el inventario de paquetes.
+//              
+//          versión.función - v.1.0    
+//------------------------------------------------------------------   
+    var tabla = document.getElementById('tablaCatalogoInventarioPaquetes');
+    var contenidoTabla = '';
+    tabla.innerHTML = contenidoTabla;
+
+    var frmFiltros = document.getElementById('frmFiltrosPackagesInventory');
+    var descripcion = frmFiltros.filtroDescripcion.value;
+    var fechaInicio = frmFiltros.filtroFechaInicio.value;
+    var fechaFin = frmFiltros.filtroFechaFin.value;
+    var checkDetallado = document.getElementById('checkInventarioPaqDetallado').checked;
+    var idsProductos = document.getElementById('idsProductosPaquetes');
+
+    // pantallaCarga('on');
+
+    fetch("../php/AJAX/traeInventarioPaquetesAJAX.php?descripcion="+descripcion+"&fechaInicio="+fechaInicio+"&fechaFin="+fechaFin+"&detallado="+checkDetallado+"&idsProductos="+idsProductos.value, { method: "GET" })
+    .then(response => response.json())
+    .then(data => {
+        // pantallaCarga('off');
+
+        if(data["detallado"] == 1){ 
+            document.getElementById('frmFiltrosPackagesInventory').style.display = "block";
+            if (data["resultado"] == 1) {
+                
+                contenidoTabla = '<thead class="sticky-top">'+
+                                    '<tr>'+
+                                        '<th colspan="6"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tablaCatalogoInventarioGeneral", "Inventario General", "Inventario")\'><i class="fa-solid fa-file-excel fa-xl"></i></div>'+
+                                    '</tr>'+
+                                    '<tr>'+
+                                        '<th class="text-center">#</th>'+
+                                        '<th class="text-center">Nombre paquete</th>'+
+                                        '<th class="text-center">Fecha y hora</th>'+
+                                        '<th class="text-center"></th>'+
+                                    '</tr>'+
+                                '</thead>';
+
+                contenidoTabla += '<tbody>';
+                
+                for (var i = 0; i < data["noDatos"]; i++) {
+                
+                    var id_inventario = data[i]["id_inventario"];
+                    var id_producto = data[i]["id_producto"];
+                    var descripcion = data[i]["descripcion"];
+                    var fecha_registro = data[i]["fecha_registro"];
+                    var tipo_movimiento = data[i]["tipo_movimiento"];
+                    var indice = i+1;
+
+                    contenidoTabla += '<tr>';
+                        contenidoTabla += '<td class="text-center" hidden>'+id_inventario+'</td>';
+                        contenidoTabla += '<td class="text-center">'+indice+'</td>';
+                        contenidoTabla += '<td class="text-center">'+descripcion+'</td>';
+                        contenidoTabla += '<td class="text-center">'+fecha_registro+'</td>';
+                        contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='seleccionar para responsiva' class='cont-icono-tbl' onclick='agregarParaResponsiva(this)'><i class='fa-solid fa-plus fa-lg'></i></div></div></td>";
+                    contenidoTabla += '</tr>';
+                }
+
+                contenidoTabla += '</tbody>';
+                tabla.innerHTML = contenidoTabla;
+            } 
+
+            if(data["resultado"] == 0) {
+                // alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
+            }
+        } else {
+            document.getElementById('frmFiltrosPackagesInventory').style.display = "none";
+    
+            if (data["resultado"] == 1) {
+                
+                contenidoTabla = '<thead class="sticky-top">'+
+                                    '<tr>'+
+                                        '<th colspan="5"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tablaCatalogoInventarioGeneral", "Inventario detallado", "Inventario")\'><i class="fa-solid fa-file-excel fa-xl"></i></div></div></th>'+
+                                    '</tr>'+
+                                    '<tr>'+
+                                        '<th class="text-center">#</th>'+
+                                        '<th class="text-center">Nombre paquete</th>'+
+                                        '<th class="text-center">Existencias</th>'+
+                                        '<th class="text-center" hidden></th>'+
+                                    '</tr>'+
+                                '</thead>';
+
+                contenidoTabla += '<tbody>';
+                
+                for (var i = 0; i < data["noDatos"]; i++) {
+                
+                    var id_inventario = data[i]["id_inventario"];
+                    var existentes = data[i]["existentes"];
+                    var descripcion = data[i]["descripcion"];
+                    var indice = i+1;
+
+                    contenidoTabla += '<tr>';
+                        contenidoTabla += '<td class="text-center" hidden>'+id_inventario+'</td>';
+                        contenidoTabla += '<td class="text-center">'+indice+'</td>';
+                        contenidoTabla += '<td class="text-center">'+descripcion+'</td>';
+                        contenidoTabla += '<td class="text-center">'+existentes+'</td>';
+                        contenidoTabla += "<td hidden><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='seleccionar para responsiva' class='cont-icono-tbl' onclick='agregarParaResponsiva(this)'><i class='fa-solid fa-plus fa-lg'></i></div></div></td>";
+                    contenidoTabla += '</tr>';
+                }
+
+                contenidoTabla += '</tbody>';
+                tabla.innerHTML = contenidoTabla;
+            } 
+
+            if(data["resultado"] == 0) {
+                // alertImage('ERROR', 'Surgió un error en el catalogo entradas', 'error')
+            }
+        }
+    });
 }

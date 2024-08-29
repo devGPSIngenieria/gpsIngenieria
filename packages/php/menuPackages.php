@@ -41,7 +41,7 @@
                 </div>
 
                 <?php include_once './registerPackages.php'; ?>
-                <?php include_once './packageFormation.php'; ?>
+                <?php include_once './packageInventory.php'; ?>
                 <?php include_once './catalogPackages.php'; ?>
                 
             </div>
