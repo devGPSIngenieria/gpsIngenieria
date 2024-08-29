@@ -97,13 +97,15 @@ if (!function_exists('pintarHead')) {
       <link href='../../src/fontawesome-free-6.4.2-web/css/fontawesome.css' rel='stylesheet'>
       <link href='../../src/fontawesome-free-6.4.2-web/css/brands.css' rel='stylesheet'>
       <link href='../../src/fontawesome-free-6.4.2-web/css/solid.css' rel='stylesheet'>
+      <link href='../../fGenerales/js/alertify/css/alertify.min.css' rel='stylesheet'>
       
       <script src='../js/funciones.js?" . $SOFTWARE_VERSION_PHP . "'></script>
       <script src='../../fGenerales/js/funciones.js?" . $SOFTWARE_VERSION_PHP . "'></script>
       <script src='../../fGenerales/js/alerts.js'></script>
 
       <script src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js'></script>
-      <script src='../../fGenerales/js/jquery.js'></script>";
+      <script src='../../fGenerales/js/jquery.js'></script>
+      <script src='../../fGenerales/js/alertify/alertify.min.js' type='text/javascript'></script>";
 
       echo "<title>GpsIngeniería-" . $titulo . "</title>";
 

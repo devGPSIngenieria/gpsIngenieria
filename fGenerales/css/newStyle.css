@@ -16,10 +16,10 @@ body, html{
     background-size: cover;
     background-attachment: fixed;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     margin: 0;
     padding: 0;
-    margin-bottom: 200px;
+    /* margin-bottom: 200px; */
 }
 
   
@@ -189,7 +189,7 @@ body, html{
     margin: 18px;
 }
 .inputField {
-    border: 1px solid #438c36;
+    border: 1px solid #a8a8a8;
     background-color: #fff;
     border-radius: 5px;
     padding: 2px 5px;
@@ -225,20 +225,18 @@ body, html{
     opacity: 0.4;
 }
 .inputField:focus~.usernameLabel,
-.inputField:valid~.usernameLabel,
-.inputField:hover~.usernameLabel {
+.inputField:valid~.usernameLabel {
     transform: translateX(20px);
     opacity: 1;
 }
 .inputField:focus~.userIcon,
-.inputField:valid~.userIcon, 
-.inputField:hover~.userIcon {
+.inputField:valid~.userIcon {
     transform: translateX(20px);
     opacity: 1;
 }
 .inputField:focus,
 .inputField:valid {
-    background-color: #ebffe7;
+    background-color: #e7f0ff;
     transition-duration: .3s;
 }
 .inputField:disabled{
@@ -1403,7 +1401,8 @@ table tr:nth-child(even) {
 
 .card_content{
     background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
