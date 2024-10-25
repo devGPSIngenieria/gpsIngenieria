@@ -113,11 +113,11 @@
 
         <div class="col-12">
             <!-- FORMULARIO PARA REGISTRAR EMPLEADO -->
-            <form class="justify-content-center" id="frmRegistroEmpleados">
-                <div id="registros" style="display: none;">
+            <div id="registros" style="display: none;">
                 
-                    <div class="card_content">
-                    
+                <div class="card_content">
+                    <form class="justify-content-center" id="frmRegistroEmpleados">
+                   
                         <div class="row">
                             <div class="col-12 text-center">
                                 <label class="text-subtitle">Registro de empleados</label>
@@ -170,10 +170,10 @@
                             </div>
                     
                         </div>
-                    </div>
-                    
+                    </form>
                 </div>
-            </form>
+                
+            </div>
         </div>
 
         <section>

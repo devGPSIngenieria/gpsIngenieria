@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Stringable;
 
 class Csv extends BaseWriter
 {
@@ -105,8 +104,11 @@ class Csv extends BaseWriter
         $maxRow = $sheet->getHighestDataRow();
 
         // Write rows to file
-        foreach ($sheet->rangeToArrayYieldRows("A1:$maxCol$maxRow", '', $this->preCalculateFormulas) as $cellsArray) {
-            $this->writeLine($this->fileHandle, $cellsArray);
+        for ($row = 1; $row <= $maxRow; ++$row) {
+            // Convert the row to an array...
+            $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
+            // ... and write to the file
+            $this->writeLine($this->fileHandle, $cellsArray[0]);
         }
 
         $this->maybeCloseFileHandle();
@@ -247,8 +249,6 @@ class Csv extends BaseWriter
 
     /**
      * Convert boolean to TRUE/FALSE; otherwise return element cast to string.
-     *
-     * @param null|bool|float|int|string|Stringable $element element to be converted
      */
     private static function elementToString(mixed $element): string
     {
@@ -273,7 +273,6 @@ class Csv extends BaseWriter
         // Build the line
         $line = '';
 
-        /** @var null|bool|float|int|string|Stringable $element */
         foreach ($values as $element) {
             $element = self::elementToString($element);
             // Add delimiter

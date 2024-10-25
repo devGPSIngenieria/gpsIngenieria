@@ -1,6 +1,8 @@
 <?php
 
 include "../../fGenerales/bd/conexion.php";
+include "../../ordenesTrabajos/php/formatoOrdenTrabajo.php";
+require '../../vendor/autoload.php';
 
 $datosOrden = filter_input(INPUT_POST, "datosOrden");
 $firmaCliente = filter_input(INPUT_POST, "firmaCliente");
@@ -10,127 +12,133 @@ $firmaEmpleado = filter_input(INPUT_POST, "firmaEmpleado");
 
 $datosOrden = json_decode($datosOrden);
 
-//var_dump($datosOrden);
+  $km = $datosOrden->km;
+  $travelTime = $datosOrden->travelTime;
+  $manualJob = $datosOrden->manualJob;
+  $total = $datosOrden->total;
+  $problemas = $datosOrden->problemas;
+  $trabajo = $datosOrden->trabajo;
+  $usuarioid = $datosOrden->usuarioid;
+  $comentarios = $datosOrden->comentarios; 
+  $flete = $datosOrden->flete;
+  $clienteId = $datosOrden->clienteId;
+  $productos = $datosOrden->productos;
+  $typeClient = $datosOrden->typeClient;
+  $workData = $datosOrden->workData;
+  
+ $arrResultados = [];
 
-$servicios = $datosOrden->servicios;
-$clienteid = $datosOrden->clienteId;
-$problemas = $datosOrden->problemas;
-$trabajo = $datosOrden->trabajo;
-$usuarioid = $datosOrden->usuarioid;
-$productos = $datosOrden->productos;
-$flete = $datosOrden->flete;
-$total = $datosOrden->total;
+ $conexionChecarOrdenTrabajo = new conexion;
+ $queryChecarOrdenTrabajo = "SELECT numfolio FROM ordentrabajo order by numfolio desc limit 1 ";
+ $resultados = $conexionChecarOrdenTrabajo->conn->query($queryChecarOrdenTrabajo);
 
-$arrResultados = [];
+ $idImagen = 0;
 
-//checnado la ultima orde de trabajo que se hiso
+ if ($resultados->num_rows > 0) {
 
-$conexionChecarOrdenTrabajo = new conexion;
-$queryChecarOrdenTrabajo = "SELECT ordenid FROM ordentrabajo order by ordenid desc limit 1 ";
-$resultados = $conexionChecarOrdenTrabajo->conn->query($queryChecarOrdenTrabajo);
+   foreach ($resultados->fetch_row() as $id) {
 
-$idImagen = 0;
+     $idImagen = $id + 1;
+   }
+ } else {
 
-if ($resultados->num_rows > 0) {
+   $idImagen = 1;
+ }
 
-  foreach ($resultados->fetch_row() as $id) {
-
-    $idImagen = $id + 1;
-  }
-} else {
-
-  $idImagen = 1;
-}
-
-
-//subiendo firmas 
-
-// Decodificar la cadena Base64 a bytes
 $imgClienteFirma = base64_decode($firmaCliente);
-
-// Ruta donde se guardará la imagen
 $pathClienteFirma = "firmaCliente" . $idImagen . ".jpg";
-
-// Guardar la imagen en el disco
+$clienteFirmaPath = "../../ordenesTrabajos/src/firmas/" . $pathClienteFirma;
 file_put_contents("../../ordenesTrabajos/src/firmas/" . $pathClienteFirma, $imgClienteFirma);
-
-
-
-// Decodificar la cadena Base64 a bytes
 $imgEmpleado = base64_decode($firmaEmpleado);
-
-// Ruta donde se guardará la imagen
 $pathEmpleado = "firmaEmpleado" . $idImagen . ".jpg";
-
-// Guardar la imagen en el disco
+$empleadoFirmaPath = "../../ordenesTrabajos/src/firmas/" . $pathEmpleado;
 file_put_contents("../../ordenesTrabajos/src/firmas/" . $pathEmpleado, $imgEmpleado);
-
-//CALCULANDO SALDO PENDIENTE 
 
 $saldoPendiente = floatval($total) - floatval($flete);
 
-//INSERTANDO LA ORDEN DE TRABAJO
+if ($typeClient != "0") {
+  $clientdata = $datosOrden->clientdata;
+  $clienteId = createNewClient($clientdata,$typeClient);
+}
+
 
 $conexionInsertaOrden = new conexion;
-$queryInsertaOrden = "INSERT INTO ordentrabajo (idusuario, trabajorealizado, problema, numfolio, idcliente, firmaempleadoid, firmaclienteid, totalpago, flete, saldopendiente, fecha) VALUES (" . $usuarioid . ", '" . $trabajo . "', '" . $problemas . "'," . ($idImagen + 1) . "," . $clienteid . "," . $idImagen . "," . $idImagen . ",'".$total."', '".$flete."', '".$saldoPendiente."',NOW());";
+$queryInsertaOrden = "INSERT INTO ordentrabajo (idusuario, trabajorealizado, problema, comentarios, idcliente, firmaempleadoid, firmaclienteid, totalpago, flete, saldopendiente, fecha) ".
+ " VALUES (" . $usuarioid . ", '" . $trabajo . "', '" . $problemas . "', '" . $comentarios . "'," . $clienteId . "," . $idImagen . "," . $idImagen . ",'".$total."', '".$flete."', '".$saldoPendiente."',NOW());";
 
 
 if ($conexionInsertaOrden->conn->query($queryInsertaOrden) == true) {
-
-  $ordeId = $conexionInsertaOrden->conn->insert_id;
-
-  //echo $ordeId;
-
-
-  $servicios = json_decode($servicios, true);
-
-  foreach ($servicios as $servicio) {
-
-
-    //insertando los servicios
-
-    $conexionServicioNuevo = new conexion;
-    $queryServicioNuevo = "INSERT INTO serviciosofrecidos VALUES (" . $ordeId . "," . $servicio["id"] . ")";
-    $conexionServicioNuevo->conn->query($queryServicioNuevo);
-  }
-
-
-  //insertando los productos y quitando las existencias 
+   $ordeId = $conexionInsertaOrden->conn->insert_id;
+   createServices($km, 1, $ordeId);
+   createServices($travelTime, 2, $ordeId);
+   createServices($manualJob, 3, $ordeId);
    $productos = json_decode($productos,true);
+   createNewProductsForWorkOrder($productos, $ordeId);
+   createWorkServices($ordeId, $workData);
+   $arrResultados[0]["pdf"] = createPDFOrden($ordeId);
+   $arrResultados[0]["status"] = 1;
 
-    //INSERTANDO LAS ENTRADAS 
-    $conexionEntradas = new conexion;
-    $queryEntradas = "INSERT INTO entradassalidas(idtipo,idmovimiento,idrelacion,fecha,estado) VALUES (2,2,".$ordeId.",now(),1)";
-    $conexionEntradas->conn->query($queryEntradas);
-
-   foreach($productos as $producto){
-    //haciendo la disminucion de existencias 
-
-    $conexionChecarProductoExistencias = new conexion;
-    $queryChecarProductoExistencias = "SELECT existentes FROM productos WHERE idproducto = ".$producto["id"];
-    $existencias = $conexionChecarProductoExistencias->conn->query($queryChecarProductoExistencias);
-
-    $existencia = $existencias->fetch_row(); 
-    $existenciasNuevas = $existencia[0] - $producto["salidas"];
-
-    //cambiando las existencias del producto alas nuevas
-    $conexionCambiarExistencias = new conexion;
-    $queryCambiarExistencias = "UPDATE productos SET existentes = ".$existenciasNuevas ." WHERE idproducto = ".$producto["id"];
-    $conexionCambiarExistencias->conn->query($queryCambiarExistencias);
-
-    //CREANDO LAS EXISTENCIAS QUE SE CREARON EN LA ENTRADA DE PRODUCTO
-
-    $conexionCantidad = new conexion;
-    $queryCantidad = "INSERT INTO productorelacionentradassalidas (identradasalida,idproducto,cantidad,estado) VALUES (".$conexionEntradas->conn->insert_id.",".$producto["id"].",".$producto["salidas"].",1)";
-    $conexionCantidad->conn->query($queryCantidad);
-
+}else {
+  $arrResultados[0]["status"] = 0;
   }
 
-  $arrResultados[0]["status"] = 1;//SE AGREGARON LOS DATOS CORRECTAMENTE
+ echo json_encode($arrResultados);
 
-} else {
 
-  $arrResultados[0]["status"] = 0;//OCURRIO UN ERROR AL AGREGAR LA ORDEN
+function createWorkServices($numFolio, $workData) {
+  $data = json_decode($workData);
+  if ($data->demostracion) {
+    createNewWork(1, $numFolio);
+  }
+  if ($data->instalacion) {
+    createNewWork(2, $numFolio);
+  }
+  if ($data->servicio) {
+    createNewWork(3, $numFolio);
+  }
+  if ($data->garantia) {
+    createNewWork(4, $numFolio);
+  }
+  if ($data->reparacion) {
+    createNewWork(5, $numFolio);
+  }
 }
 
-echo json_encode($arrResultados);
+function createNewWork($idWork, $numFolio) {
+  $conexionTrabajoNuevo = new conexion;
+  $queryTrabajoNuevo = "INSERT INTO trabajo_realizado (numfolio, idwork) VALUES (" . $numFolio . "," . $idWork. ")";
+  $conexionTrabajoNuevo->conn->query($queryTrabajoNuevo);
+}
+
+function createServices($services, $type, $id) {
+     $conexionServicioNuevo = new conexion;
+     $queryServicioNuevo = "INSERT INTO servicios (numfolio, type, count) VALUES (" . $id . "," . $type.  ",".$services.")";
+     $conexionServicioNuevo->conn->query($queryServicioNuevo);
+}
+
+function createNewProductsForWorkOrder($productos, $id) {
+     foreach($productos as $product) {
+     $conexionInvetario = new conexion;
+     $queryInvetario = "SELECT*FROM inventario where id_producto = ".$product["id"]." and id_estado = 1 limit ". $product["salidas"];
+     $dataProducts = $conexionInvetario->conn->query($queryInvetario);
+      foreach($dataProducts->fetch_all() as $existencia) {
+        $conexionUpdateInventario = new conexion;
+        $queryUpdateInventario = "UPDATE inventario SET id_estado = 2 WHERE id_inventario = ".$existencia[0] ;
+        $conexionUpdateInventario->conn->query($queryUpdateInventario);
+        $conexionCreateVentasOrden = new conexion;
+        $queryCreateVentasOrden = "INSERT INTO ventas_orden VALUES (".$existencia[0].", ".$id.", 1)" ;
+        $conexionCreateVentasOrden->conn->query($queryCreateVentasOrden);
+      } 
+     }  
+}
+
+function createNewClient($dataClient, $typeClient) {
+  $data = json_decode($dataClient);
+  $conexionCreateNewClient = new conexion;
+  $queryCreateNewClient = "INSERT INTO clientes (client_company, adress, country, contact, rfc, email, typeid) ". 
+  " VALUES ('".$data->cliente."','".$data->domicilio."','".$data->adress."','".$data->contact."','".$data->rfc."','".$data->email."', ".$typeClient.") ";
+  $conexionCreateNewClient->conn->query($queryCreateNewClient);
+  return  $conexionCreateNewClient->conn->insert_id;
+}
+
+

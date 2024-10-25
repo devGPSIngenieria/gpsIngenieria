@@ -265,12 +265,8 @@ class NumberFormatter extends BaseFormatter
 
     public static function padValue(string $value, string $baseFormat): string
     {
-        $preDecimal = $postDecimal = '';
-        $pregArray = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
-        if (is_array($pregArray)) {
-            $preDecimal = $pregArray[0] ?? '';
-            $postDecimal = $pregArray[1] ?? '';
-        }
+        /** @phpstan-ignore-next-line */
+        [$preDecimal, $postDecimal] = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
 
         $length = strlen($value);
         if (str_contains($postDecimal, '?')) {

@@ -115,38 +115,23 @@ function abrirEvidenciaFactura(id) {
 
 }
 
-function checarOrden(ordenid) {
-
-    window.open("../../ordenesTrabajos/php/formatoOrdenTrabajo.php?ordenid=" + ordenid, "_blank");
-
-
+function checarOrden(url) {
+    console.log(url)
+    window.open(url, "_blank");
 }
 
 function abrirPagos(id) {
-
     $("#miModal").modal('show');
-
     var formularioPagos = document.getElementById("frmPagos");
-
     modalAbierto(1);
-
-
-
     formularioPagos.id.value = id;
-
     formularioPagos.style.display = "none";
-
-
     const options = {
         method: "GET"
     };
-
-    // Petición HTTP
     fetch("../../ordenesTrabajos/php/traerPagosAJAX.php?id=" + id, options)
         .then(response => response.json())
         .then(data => {
-
-
             var tablaPagos = document.getElementById("tablaPagos");
 
             var cadena = "<tr><th>Cantidad</th><th>Evidencia</th></tr>";
@@ -157,56 +142,25 @@ function abrirPagos(id) {
                     cadena = cadena + "<tr><td>" + data[i]["cantidad"] + "</td><td><img src=\"../../src/imagenes/mostrarEvidencia.png\" width=\"30px\" onclick=\"mostrarEvidencia(" + data[i]["id"] + ")\"></td></tr>";
 
                 }
-
-
-
             }
-
             tablaPagos.innerHTML = cadena;
-
-
-
         });
-
-
-
-
-
-
-
-
 }
 
 function abrirModalFacturaAgregar(id) {
-
-
     $("#miModal").modal('show');
-
     var frmFactura = document.getElementById("frmFactura");
-
     frmFactura.id.value = id;
-
     modalAbierto(2);
-
-
-
-
 }
 
-
 function agregarFactura() {
-    
     pantallaCarga('on');
-    
     const data = new FormData(document.getElementById('frmFactura'));
-
     const options = {
         method: "POST",
         body: data
-
     };
-
-    // Petición HTTP
     fetch("../../ordenesTrabajos/php/subirFacturaAJAX.php", options)
         .then(response => response.json())
         .then(data => {
@@ -216,32 +170,20 @@ function agregarFactura() {
                 formulario.reset();
                 actualiza(data)
                 $("#miModal").modal('hide');
-
                 pantallaCarga('off');
-
             } else {
                 alertImage('ERROR', 'hubo un error', 'error')
-
                 pantallaCarga('off');
-
             }
-
         });
-
 }
 
 function modalAbierto(elemento) {
-
-
     var formularioPagos = document.getElementById("frmPagos");
     var divPagos = document.getElementById("divPagos");
     var formularioFactura = document.getElementById("frmFactura");
-
     var btnFormulario = document.getElementById("btnNuevoPago");
-
     if (elemento == 1) {
-
-
         formularioPagos.style.display = "block";
         divPagos.style.display = "block";
         formularioFactura.style.display = "none"
@@ -249,70 +191,40 @@ function modalAbierto(elemento) {
         btnFormulario.onclick = function () {
             nuevoPago();
         }
-
     }
-
     if (elemento == 2) {
-
-
-
         if (divPagos != null) {
-
             formularioPagos.style.display = "none";
             divPagos.style.display = "none";
-
         }
-
         btnFormulario.textContent = "Agregar Factura";
-
         formularioFactura.style.display = "block"
         btnFormulario.onclick = function () {
             agregarFactura();
         }
-
     }
-
 }
 
 function mostrarEvidencia(id) {
-
     window.open("../evidencias/evidencia" + id + ".jpg", "_blank");
-
 }
 
 function nuevoPago() {
-
     // if(estado==1){
-
     var formularioPagos = document.getElementById("frmPagos");
-
-
-
     var estado = formularioPagos.estado.value;
     if (estado == 1) {
-
-
-        formularioPagos.style.display = "block";
-
+      formularioPagos.style.display = "block";
         var btnNuevoPago = document.getElementById("btnNuevoPago");
-
         btnNuevoPago.textContent = "Subir"
-
         formularioPagos.estado.value = 0
     } else {
-
         formularioPagos.estado.value = 1
-
-
         const data = new FormData(document.getElementById('frmPagos'));
-
         const options = {
             method: "POST",
             body: data
-
         };
-
-        // Petición HTTP
         fetch("../../ordenesTrabajos/php/subirPagoAJAX.php", options)
             .then(response => response.json())
             .then(data => {
@@ -330,40 +242,23 @@ function nuevoPago() {
                 }
                 if (data["resultado"] == 0) {
                     alertImage('ERROR', 'La cantidad ya fue completada', 'error')
-
                 }
-
             });
-
-
-
     }
-
-
 }
 
 function cerrarPago() {
-
-
     var formularioPagos = document.getElementById("frmPagos");
     var formularioFactura = document.getElementById("frmFactura");
-
-
     if (formularioPagos != null) {
         formularioPagos.estado.value = 1
         formularioPagos.reset();
     }
-
     if (formularioFactura != null) {
         formularioFactura.reset();
     }
-
-
     var btnNuevoPago = document.getElementById("btnNuevoPago");
-
     btnNuevoPago.textContent = "Nuevo Pago"
     $("#miModal").modal('hide');
-
-
 
 }

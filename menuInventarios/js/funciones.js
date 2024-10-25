@@ -13,7 +13,3 @@ function abrirReportes() {
 function abrirResponsivas(){
     window.open("../../responsivas/php/menuResponsivas.php","_self");
 }
-
-function abrirTools(){
-    window.open("../../tools/php/menuTools.php","_self");
-}

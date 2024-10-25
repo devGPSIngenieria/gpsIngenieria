@@ -7,18 +7,15 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\ArrayArgumentProcessor;
 
 trait ArrayEnabled
 {
-    private static bool $initializationNeeded = true;
-
-    private static ArrayArgumentHelper $arrayArgumentHelper;
+    private static ?ArrayArgumentHelper $arrayArgumentHelper = null;
 
     /**
      * @param array|false $arguments Can be changed to array for Php8.1+
      */
     private static function initialiseHelper($arguments): void
     {
-        if (self::$initializationNeeded === true) {
+        if (self::$arrayArgumentHelper === null) {
             self::$arrayArgumentHelper = new ArrayArgumentHelper();
-            self::$initializationNeeded = false;
         }
         self::$arrayArgumentHelper->initialise(($arguments === false) ? [] : $arguments);
     }

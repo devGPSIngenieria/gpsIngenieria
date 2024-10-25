@@ -51,7 +51,7 @@ $resultados = [];
 
             $queryProductos = "SELECT i.id_inventario, i.id_producto, i.no_serial, p.no_parte, p.descripcion, i.fecha_registro, i.tipo_movimiento" 
                                 ." FROM productos p, inventario i"
-                                ." WHERE i.id_producto = p.id_producto AND i.tipo_movimiento IN (1, 2) AND i.id_estado = 1 " . $cadenaQuery . " " . $cadenaQueryIds;
+                                ." WHERE i.id_producto = p.id_producto AND i.tipo_movimiento = (1 or 2) AND i.id_estado = 1 " . $cadenaQuery . " " . $cadenaQueryIds;
             $datos = $conexionProductos->conn->query($queryProductos);
 
             if ($conexionProductos->conn->query($queryProductos)) {
@@ -89,7 +89,7 @@ $resultados = [];
             ." JOIN ("
                 ." SELECT MAX(id_inventario) AS id_inventario, id_producto"
                 ." FROM inventario"
-                ." WHERE id_estado = 1 AND tipo_movimiento IN (1, 2) ".$cadenaQueryIds2.""
+                ." WHERE id_estado = 1 AND tipo_movimiento = (1 or 2) ".$cadenaQueryIds2.""
                 ." GROUP BY id_producto"
             ." ) AS max_inventario ON p.id_producto = max_inventario.id_producto";
 

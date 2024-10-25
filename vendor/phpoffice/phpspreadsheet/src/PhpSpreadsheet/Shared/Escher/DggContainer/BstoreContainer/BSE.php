@@ -19,9 +19,9 @@ class BSE
 
     /**
      * The parent BLIP Store Entry Container.
-     * Property is currently unused.
+     * Property is never currently read.
      */
-    private BstoreContainer $parent;
+    private BstoreContainer $parent; // @phpstan-ignore-line
 
     /**
      * The BLIP (Big Large Image or Picture).
@@ -41,11 +41,6 @@ class BSE
     public function setParent(BstoreContainer $parent): void
     {
         $this->parent = $parent;
-    }
-
-    public function getParent(): BstoreContainer
-    {
-        return $this->parent;
     }
 
     /**

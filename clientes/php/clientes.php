@@ -96,10 +96,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                 <img class="marcaAguaTabla" src="../../src/imagenes/logo.png">
                                 <!--LLENADO LOS DATOS DE LAS TABLAS   -->
                                 <?php
-
                                 foreach ($resultados->fetch_all() as $columna) {
-
-
                                     echo " <tr>
                                         <td class=\"text-center\">" . $columna[1] . " " .$columna[2]."</td>
                                         <td class=\"text-center\">" . $columna[3] . "</td>
@@ -111,9 +108,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                         <td class=\"text-center\"><img src=\"../../src/imagenes/editargps.png\" width=\"50px\" onclick=\"abrirModal(" . $columna[0] . ",'" . $columna[1] . "','" . $columna[2] . "','" . $columna[3] . "','" . $columna[4] . "','" . $columna[5] . "','" . $columna[6] . "','" . $columna[7] . "','" . $columna[8] . "')\"></td>
                                         </tr>";
                                 }
-
                                 ?>
-
                             </tbody>
                         </table>
                     </div>
@@ -182,7 +177,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
                     <div class="contenedor-boton-gen">
                         <div class="main_div">
-                            <button onclick="crearCliente()">GUARDAR</button>
+                            <a onclick="crearCliente()">GUARDAR</a>
                         </div>
                     </div>
 

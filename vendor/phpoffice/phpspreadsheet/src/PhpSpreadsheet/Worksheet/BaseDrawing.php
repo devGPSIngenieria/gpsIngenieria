@@ -386,14 +386,14 @@ class BaseDrawing implements IComparable
         return $this;
     }
 
-    public function getShadow(): Shadow
+    public function getShadow(): Drawing\Shadow
     {
         return $this->shadow;
     }
 
-    public function setShadow(?Shadow $shadow = null): self
+    public function setShadow(?Drawing\Shadow $shadow = null): self
     {
-        $this->shadow = $shadow ?? new Shadow();
+        $this->shadow = $shadow ?? new Drawing\Shadow();
 
         return $this;
     }

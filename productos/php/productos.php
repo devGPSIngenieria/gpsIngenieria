@@ -79,23 +79,16 @@
                                 }
 
                                 if($dato[1]==15){
-
-                                    echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(7)">
-                                        <span class="button_lg">
-                                            <span class="button_sl"></span>
-                                            <span class="button_text">Catálogo devoluciones</span>
-                                        </span>
-                                    </button>';
-                                }
-                                
-                                if($dato[1]==16){
                                     echo '<button class="btn-apartado-secciones" onclick="abrirSeccion(4)">
                                         <span class="button_lg">
                                             <span class="button_sl"></span>
                                             <span class="button_text">Subida masiva productos</span>
                                         </span>
                                     </button>';
-                                }   
+                                }
+
+                               
+                                
                             }
                         ?>
                     </div>
@@ -381,15 +374,10 @@
 
             <!-- MODULO - SUBIDA MASIVA -->
             <?php include "subidaMasiva.php"?>
-            
             <!-- MODULO - INVENTARIO GENERAL -->
             <?php include "generalInventory.php"?>
-            
             <!-- MODULO - CATALOGO RESPONSIVAS -->
             <?php include "responsiveCatalog.php"?>
-            
-            <!-- MODULO - CATALOGO DEVOLUCIONES -->
-            <?php include "returns.php"?>
 
             <!-- MODAL MODIFICAR -->
             <div class="modal fade" id="miModalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

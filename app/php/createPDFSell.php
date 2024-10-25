@@ -1,10 +1,10 @@
 <?php
-
+include "../../constants.php";
 use Fpdf\Fpdf as Fpdf;
 
 function createPDFSell($idSell)
 {
-
+    $server = DataConfig::SERVER;
     $dataSell = findDataSell($idSell);
 
     $pdf = new Fpdf();
@@ -139,20 +139,18 @@ function createPDFSell($idSell)
     $pdf->Ln();
     $pdf->SetTextColor(0, 0, 0);
     
-    //$pdf->Image('../../src/imagenes/firm-12.jpg', 0, 0, 620, 563);
-
-    // $pdf->Cell(30, $ancho, "", "", 0, "L");
-    // $pdf->Cell(40, $ancho, "Firma Empleado", "", 0, "C");
-    // //$pdf->Image('../../ventas/src/firmClients/firm-12.jpg', 0, 0, 50, 250);
-    // $pdf->Cell(45, $ancho, "", "", 0, "L");
-    // $pdf->Cell(40, $ancho, "Firma Cliente", "", 0, "C");
+    $pdf->Image('../../ventas/src/firmEmployees/firm-'.$idSell.'.jpg', 130, 113, 20, 20);
+     $pdf->Cell(30, $ancho, "", "", 0, "L");
+     $pdf->Cell(40, $ancho, "Firma Empleado", "", 0, "C");
+     $pdf->Image('../../ventas/src/firmClients/firm-'.$idSell.'.jpg', 50, 113, 20, 20);
+     $pdf->Cell(45, $ancho, "", "", 0, "L");
+     $pdf->Cell(40, $ancho, "Firma Cliente", "", 0, "C");
 
     $pdfFilePath = '../../ventas/src/pdfSells/sell'.$idSell.'.pdf';
 
    $pdf->Output($pdfFilePath, 'F');
    // $pdf->Output('I');
 
-    $server = "http://192.168.1.157";
     //$server = "https://inggpsmexico.com";
     return $server."/gpsIngenieria/ventas/src/pdfSells/sell".$idSell.".pdf";
 }

@@ -63,9 +63,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Convert value to number
                 $sign = ($matches['PrefixedSign'] ?? $matches['PrefixedSign2'] ?? $matches['PostfixedSign']) ?? null;
                 $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'];
-                /** @var string */
-                $temp = str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value));
-                $value = (float) ($sign . trim($temp));
+                $value = (float) ($sign . trim(str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value)))); // @phpstan-ignore-line
 
                 return $this->setCurrency($value, $cell, $currencyCode ?? '');
             }

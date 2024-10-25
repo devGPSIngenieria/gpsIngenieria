@@ -22,6 +22,7 @@ return array(
     'FilterLZW' => $vendorDir . '/setasign/fpdi/filters/FilterLZW.php',
     'INDIC' => $vendorDir . '/mpdf/mpdf/classes/indic.php',
     'MYANMAR' => $vendorDir . '/mpdf/mpdf/classes/myanmar.php',
+    'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'OTLdump' => $vendorDir . '/mpdf/mpdf/classes/otl_dump.php',
     'PDF417' => $vendorDir . '/tecnickcom/tcpdf/include/barcodes/pdf417.php',
     'PDFBarcode' => $vendorDir . '/mpdf/mpdf/classes/barcode.php',

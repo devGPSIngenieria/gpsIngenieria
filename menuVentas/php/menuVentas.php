@@ -20,18 +20,14 @@
     <div class="contenedorCont">
         <!-- //div principal -->
         <div class="col-12">
-
             <?php pintarEncabezado('Ventas','<i class="fa-solid fa-money-bill-trend-up fa-2xl"></i>',''); ?>
-            
-
-
             <main class="site-wrapper">
                 <div class="pt-table desktop-768">
                     <div class="pt-tablecell">
                         <div class="container">
                             <div class="row d-flex justify-content-center">
                             
-                                <div class="col-lg-3" hidden="true">
+                                <div class="col-lg-4" >
                                     <div class="hexagon-item">
                                         <div class="hex-item">
                                             <div></div> <div></div> <div></div>
@@ -73,7 +69,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="hexagon-item">
                                         <div class="hex-item">
                                             <div></div> <div></div> <div></div>
@@ -94,7 +90,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-3" hidden="true">
+                                <div class="col-lg-4" >
                                     <div class="hexagon-item">
                                         <div class="hex-item">
                                             <div></div> <div></div> <div></div>

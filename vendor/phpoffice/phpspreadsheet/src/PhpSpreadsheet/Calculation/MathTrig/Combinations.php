@@ -40,14 +40,7 @@ class Combinations
             return $e->getMessage();
         }
 
-        /** @var float */
-        $quotient = Factorial::fact($numObjs);
-        /** @var float */
-        $divisor1 = Factorial::fact($numObjs - $numInSet);
-        /** @var float */
-        $divisor2 = Factorial::fact($numInSet);
-
-        return round($quotient / ($divisor1 * $divisor2));
+        return round(Factorial::fact($numObjs) / Factorial::fact($numObjs - $numInSet)) / Factorial::fact($numInSet); // @phpstan-ignore-line
     }
 
     /**
@@ -91,13 +84,8 @@ class Combinations
             return $e->getMessage();
         }
 
-        /** @var float */
-        $quotient = Factorial::fact($numObjs + $numInSet - 1);
-        /** @var float */
-        $divisor1 = Factorial::fact($numObjs - 1);
-        /** @var float */
-        $divisor2 = Factorial::fact($numInSet);
-
-        return round($quotient / ($divisor1 * $divisor2));
+        return round(
+            Factorial::fact($numObjs + $numInSet - 1) / Factorial::fact($numObjs - 1) // @phpstan-ignore-line
+        ) / Factorial::fact($numInSet);
     }
 }

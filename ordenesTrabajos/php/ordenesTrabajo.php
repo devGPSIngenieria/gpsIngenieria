@@ -1,9 +1,11 @@
 <?php
     include "../../fGenerales/bd/conexion.php";
     include "../../fGenerales/php/funciones.php";
+    include "../../constants.php";
     include "formularios.php";
 
-    pantallaCarga('on');
+    //pantallaCarga('on');
+    $server = DataConfig::SERVER;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,9 +19,9 @@
 <?php
 
 $conexionOrdenes = new conexion;
-$queryOrdenes = "SELECT ot.numfolio,u.nombre ,c.nombre as nombrecliente , c.apellidos  ,ot.totalpago,ot.fecha,ot.ordenid,ot.saldopendiente,ot.factura,ot.flete  
+$queryOrdenes = "SELECT ot.numfolio, u.nombre, c.client_company as nombrecliente, ot.totalpago, ot.fecha, ot.numfolio, ot.saldopendiente, ot.flete  
 FROM ordentrabajo ot,usuarios u,clientes c 
-WHERE ot.idusuario = u.idusuario AND ot.idcliente = c.idcliente";
+WHERE ot.idusuario = u.id_usuario AND ot.idcliente = c.idclient ORDER BY ot.numfolio desc";
 $resultados = $conexionOrdenes->conn->query($queryOrdenes);
 
 
@@ -28,7 +30,7 @@ session_start();
 
 $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
-//var_dump($resultados);
+//var_dump($resultados->fetch_all());
 
 ?>
 
@@ -63,7 +65,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
 
             </div>
 
-            <div id="catalogo" style="display: none;">
+            <div id="catalogo" style="display: none;" class="col-12">
 
                 <!-- FILTROS -->
                 <div class="col-12">
@@ -110,9 +112,11 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                         </div>
 
                     </div>
-                </div>
-                
-                <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                 </div>
+                 </div>
+
+                   <div class="col-12">
+                  <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
                     <div class="col-sm-12">
                         <div class="col-12 text-center">
                             <label class="text-subtitle">Catálogo de productos</label>
@@ -126,7 +130,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                             <th class="text-center" scope="col">N.Folio</th>
                                             <th class="text-center" scope="col">Trabajador</th>
                                             <th class="text-center" scope="col">Cliente</th>
-                                            <th class="text-center" scope="col">Factura</th>
+                                            <!--<th class="text-center" scope="col">Factura</th>-->
                                             <th class="text-center" scope="col">Pago Total</th>
                                             <th class="text-center" scope="col">Flete</th>
                                             <th class="text-center" scope="col">Deuda</th>
@@ -140,23 +144,24 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                                         <!--LLENADO LOS DATOS DE LAS TABLAS   -->
                                     <?php
                                         foreach ($resultados->fetch_all() as $columna) {
+                                        
                                             echo " <tr>
                                                 <td class=\"text-center\">" . $columna[0] . "</td>
                                                 <td class=\"text-center\">" . $columna[1] . "</td>
-                                                <td class=\"text-center\">" . $columna[2] . " " . $columna[3] . "</td>";
+                                                <td class=\"text-center\">" . $columna[2] .  "</td>";
                                                 
-                                            if ($columna[8] != "") {
-                                                echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[8] . "</div><img src=\"../../src/imagenes/bills.svg\" width=\"40px\" onclick=\"abrirEvidenciaFactura(".$columna[6].")\"></td>";
+                                                /*if ($columna[0] != "") {
+                                                echo   "<td class=\"text-center\"><div style=\"margin-right: 10px;\">" . $columna[0] . "</div><img src=\"../../src/imagenes/bills.svg\" width=\"40px\" onclick=\"abrirEvidenciaFactura(".$columna[0].")\"></td>";
                                             } else {
-                                                echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[6] . ")\" width=\"40px\"></td>";
-                                            }
+                                                echo   "<td class=\"text-center\"><img src=\"../../src/imagenes/agregargps.png\" onclick=\"abrirModalFacturaAgregar(" . $columna[0] . ")\" width=\"40px\"></td>";
+                                            }*/
 
-                                            echo  "<td class=\"text-center\">" . $columna[4] . "</td>
-                                                <td class=\"text-center\">" . $columna[9] . "</td>
-                                                <td class=\"text-center\">$columna[7]</td>
-                                                <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[6] . ")\"></td>
-                                                <td class=\"text-center\">" . $columna[5] . "</td>
-                                                <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden(" . $columna[6] . ")\"></td>
+                                            echo  "<td class=\"text-center\">" . $columna[3] . "</td>
+                                                <td class=\"text-center\">" . $columna[7] . "</td>
+                                                <td class=\"text-center\">$columna[6]</td>
+                                                <td class=\"text-center\"><img src=\"../../src/imagenes/pagos.png\"   width=\"40px\" onclick=\"abrirPagos(" . $columna[0] . ")\"></td>
+                                                <td class=\"text-center\">" . $columna[4] . "</td>
+                                                <td class=\"text-center\"><img src=\"../../src/imagenes/pdf.png\" width=\"50\"  onclick=\"checarOrden('../src/pdf/orden" . $columna[0] . ".pdf')\"></td>
                                                 </tr>";
                                         }
                                     ?>
@@ -168,6 +173,7 @@ $datos = checarPermisosSeccion($_SESSION['usuarioid']);
                 </div>
             </div>
         </div>
+    </div>
 
 
         <!-- Modal -->
