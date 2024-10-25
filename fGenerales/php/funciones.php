@@ -1,6 +1,6 @@
 <?php
 //funcion para revisar la adición de actualizado de actualizado
-$SOFTWARE_VERSION_PHP="1.2";
+$SOFTWARE_VERSION_PHP="1.3";
 
 // CHECA EL USUARIO EXISTENTE EN LA BD
 if (!function_exists('checarLogin')) {
@@ -97,13 +97,15 @@ if (!function_exists('pintarHead')) {
       <link href='../../src/fontawesome-free-6.4.2-web/css/fontawesome.css' rel='stylesheet'>
       <link href='../../src/fontawesome-free-6.4.2-web/css/brands.css' rel='stylesheet'>
       <link href='../../src/fontawesome-free-6.4.2-web/css/solid.css' rel='stylesheet'>
+      <link href='../../fGenerales/js/alertify/css/alertify.min.css' rel='stylesheet'>
       
       <script src='../js/funciones.js?" . $SOFTWARE_VERSION_PHP . "'></script>
       <script src='../../fGenerales/js/funciones.js?" . $SOFTWARE_VERSION_PHP . "'></script>
       <script src='../../fGenerales/js/alerts.js'></script>
 
       <script src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js'></script>
-      <script src='../../fGenerales/js/jquery.js'></script>";
+      <script src='../../fGenerales/js/jquery.js'></script>
+      <script src='../../fGenerales/js/alertify/alertify.min.js' type='text/javascript'></script>";
 
       echo "<title>GpsIngeniería-" . $titulo . "</title>";
 
@@ -183,9 +185,12 @@ if (!function_exists('pintarNavBar')) {
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/gpsIngenieria/menuPrincipal/php/menuPrincipal.php" style="font-weight: bold; color: #438c36">Inicio</a>
                   </li>
+
+                  <!-- COMENTADO
                   <li class="nav-item">
                     <a class="nav-link" href="#">Acerca de</a>
                   </li>
+                  -->
 
                   <!-- COMENTADO
                   <li class="nav-item dropdown">
@@ -199,9 +204,11 @@ if (!function_exists('pintarNavBar')) {
                   </li> 
                   -->
 
+                  <!-- COMENTADO
                   <li class="nav-item">
                     <a class="nav-link" href="#">Contacto</a>
                   </li>
+                  -->
                 </ul>
                 
                 <div class="d-flex style-nav-fecha">

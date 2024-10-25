@@ -3,16 +3,17 @@
     include "../../fGenerales/bd/conexion.php";
 
     $subcategoria = filter_input(INPUT_GET, "subcategoria");
-
+    $categoria = filter_input(INPUT_GET, "categoria");
+echo $categoria;
     $conexionCrearCategoria = new conexion;
-    $queryCrearCategoria = "INSERT INTO subcategoria (nombre, id_estado) VALUES ('".$subcategoria."', 1)";
+    $queryCrearCategoria = "INSERT INTO subcategoria (nombre, id_estado, id_categoria) VALUES ('".$subcategoria."', 1, $categoria)";
 
     $resultado = [];
 
     if ($conexionCrearCategoria->conn->query($queryCrearCategoria)) {
 
         $conexionTraerCategorias = new conexion;
-        $queryTraerCategorias = "SELECT * FROM subcategoria";
+        $queryTraerCategorias = "SELECT * FROM subcategoria WHERE id_estado = 1 and package = 0";
     
         $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
 

@@ -12,7 +12,7 @@
 
         //TRAER CATEGORIAS
         $conexionTraerCategorias = new conexion;
-        $queryTraerCategorias = "SELECT * FROM categoria WHERE id_estado = 1 " . $cadenaQuery;
+        $queryTraerCategorias = "SELECT * FROM categoria WHERE id_estado = 1 and package = 0 " . $cadenaQuery;
         $datos = $conexionTraerCategorias->conn->query($queryTraerCategorias);
         
         if ($conexionTraerCategorias->conn->query($queryTraerCategorias)) {

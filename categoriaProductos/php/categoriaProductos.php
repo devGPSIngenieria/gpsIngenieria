@@ -14,7 +14,7 @@
 
     <?php
         $conexionCategorias = new conexion;
-        $queryCategorias = "SELECT * FROM categoria ";
+        $queryCategorias = "SELECT * FROM categoria WHERE id_estado = 1 and package = 0";
         $resultados = $conexionCategorias->conn->query($queryCategorias);
 
         $conexionSubcategorias = new conexion;
@@ -199,6 +199,25 @@
                                     <input id="subcategoria" name="subcategoria" class="inputField" required="" type="text" placeholder="Escriba el nombre de la subcategoría" maxlength="50">
                                     <label class='usernameLabel' for='subcategoria'>Nombre de subcategoría</label>
                                     <i class="userIcon fa-solid fa-text-width"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="inputContainer">
+                                    <select id="relacionCategoria" name="relacionCategoria" class="inputField" required="" type="text" placeholder="Selecciona la categoria a la que pertenece">
+                                        <option value=0 selected>...</option>
+                                        <?php
+                                            $conexionCategorias = new conexion;
+                                            $queryCategorias = "SELECT * FROM categoria WHERE id_estado = 1 and package = 0";
+                                            $categorias = $conexionCategorias->conn->query($queryCategorias);
+
+                                            foreach ($categorias->fetch_all() as $index => $categoria) {
+                                                print_r("<option value=\"" . $categoria[0] . "\" >" . $categoria[1] . "</option>");
+                                            }
+                                        ?>
+                                    </select>
+                                        <label class='usernameLabel' for='relacionCategoria'>Categoría a la que pertecene</label>
+                                        <i class="userIcon fa-regular fa-object-ungroup"></i>
                                 </div>
                             </div>
                             

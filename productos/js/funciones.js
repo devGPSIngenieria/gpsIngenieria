@@ -40,6 +40,7 @@ function abrirSeccion(opcion) {
             document.getElementById("returnsCatalog").style.display = 'flex';
             getReturns();
             break;
+
         default:
             break;
     }
@@ -53,7 +54,7 @@ function crearProducto() {
     const formulario = document.getElementById('frmRegistroProductos');
     const formData = new FormData(formulario);
 
-    if (formData.get('nParte') != '' && formData.get('descripcion') != '' && formData.get('precioPublico') != '' && formData.get('precioVenta') && formData.get('categoria') != 0 && formData.get('subcategoria') != 0) {
+    if (formData.get('nParte') != '' && formData.get('descripcion') != '' && formData.get('precioPublico') != '' && formData.get('precioVenta') && formData.get('filtroCategoria') != 0 && formData.get('filtroSubcategoria') != 0) {
 
         pantallaCarga('on');
 
@@ -284,6 +285,10 @@ function uploadDataProducts() {
 
     // Obtener el formulario
     const form = document.getElementById("frmExcelUpload");
+
+    if(form.archivo.value == ""){
+        alertImage('ERROR', 'Selecciona un archivo de excel.', 'error');
+    }
     // Crear un objeto FormData para recopilar los datos del formulario
     const formData = new FormData(form);
     // Realizar la solicitud Fetch
@@ -774,7 +779,7 @@ function updateResponsiveCatalog(){
                 
             contenidoTabla = '<thead class="sticky-top">'+
                                 '<tr>'+
-                                    '<th colspan="6"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tableResponsiveCatalog", "Catálogo responsivas", "responsivas")\'><i class="fa-solid fa-file-excel fa-xl"></i></div>'+
+                                    '<th colspan="7"><div class="cont-btn-tabla"><div data-toggle="tooltip" data-placement="top" title="Exportar a excel" style="background:#00a85a" class="cont-icono-tbl" onclick=\'exportarTablaExcel("tableResponsiveCatalog", "Catálogo responsivas", "responsivas")\'><i class="fa-solid fa-file-excel fa-xl"></i></div>'+
                                 '</tr>'+
                                 '<tr>'+
                                     '<th class="text-center">#</th>'+
@@ -783,6 +788,7 @@ function updateResponsiveCatalog(){
                                     '<th class="text-center">Firma</th>'+
                                     '<th class="text-center">Comentarios</th>'+
                                     '<th class="text-center">PDF</th>'+
+                                    '<th class="text-center">Devolución</th>'+
                                 '</tr>'+
                             '</thead>';
 
@@ -809,7 +815,8 @@ function updateResponsiveCatalog(){
                         contenidoTabla += '<td class="text-center" style="background-color: #baf7b5">Firmada</td>';
                     }
                     contenidoTabla += '<td class="text-center">'+comentarios+'</td>';
-                    contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='ver pdf' class='cont-icono-tbl' onclick=\"descargarArchivo('../../responsivas/php/responsivas/Responsiva_" + id_responsiva + "_" + id_usuariocreador + ".pdf', 'Responsiva" + id_responsiva + "_" + id_usuariocreador + ".pdf')\"><i class='fa-solid fa-file-pdf fa-xl'></i></div></div></td>";
+                    contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='Click para ver pdf' class='cont-icono-tbl' onclick=\"descargarArchivo('../../responsivas/php/responsivas/Responsiva_" + id_responsiva + "_" + id_usuariocreador + ".pdf', 'Responsiva" + id_responsiva + "_" + id_usuariocreador + ".pdf')\"><i class='fa-solid fa-file-pdf fa-xl'></i></div></div></td>";
+                    contenidoTabla += "<td><div class='cont-btn-tabla'><div data-toggle='tooltip' data-placement='top' title='Click para devolver' class='cont-icono-tbl' onclick=\"generarReturns("+id_responsiva+")\"><i class='fa-solid fa-right-left fa-xl'></i></div></div></td>";
 
                 contenidoTabla += '</tr>';
             }
